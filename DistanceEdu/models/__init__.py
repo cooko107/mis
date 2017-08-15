@@ -1,0 +1,22 @@
+#-*- coding: utf-8 -*-
+import jm_tju_plan
+import jm_tju_student
+import jm_student
+import jm_order
+import jm_tju_student_update
+import jm_tju_student_update2
+import jm_tju_plan_generate
+import jm_nku_student
+import jm_syu_student
+import jm_syu_student_update
+import jm_syu_plan
+import jm_syu_plan_generate
+import jm_zzu_plan
+import jm_zzu_plan_generate
+import jm_zzu_student_update
+import jm_zzu_student
+import jm_nku_plan
+import jm_nku_plan_generate
+import jm_nku_student
+import jm_nku_student_update
+import jm_sz_student_charge_confirm

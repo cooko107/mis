@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_jm_tju_plan,access_jm_tju_plan,DistanceEdu.model_jm_tju_plan,,1,0,0,0
+access_jm_tju_plan_items,access_jm_tju_plan_items,DistanceEdu.model_jm_tju_plan_items,,1,0,0,0
+access_jm_nku_plan,access_jm_nku_plan,DistanceEdu.model_jm_nku_plan,,1,0,0,0
+access_jm_nku_plan_items,access_jm_nku_plan_items,DistanceEdu.model_jm_nku_plan_items,,1,0,0,0
+access_jm_syu_plan,access_jm_syu_plan,DistanceEdu.model_jm_syu_plan,,1,0,0,0
+access_jm_syu_plan_items,access_jm_syu_plan_items,DistanceEdu.model_jm_syu_plan_items,,1,0,0,0
+access_jm_zzu_plan,access_jm_zzu_plan,DistanceEdu.model_jm_zzu_plan,,1,0,0,0
+access_jm_zzu_plan_items,access_jm_zzu_plan_items,DistanceEdu.model_jm_zzu_plan_items,,1,0,0,0
+access_jm_major,access_jm_major,JmBasedata.model_jm_major,,1,0,0,0
+access_jm_batch,access_jm_batch,JmBasedata.model_jm_batch,,1,0,0,0

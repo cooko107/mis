@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="form_jm_custom_protocol">
+      <field name="name">渠道协议form试图</field>
+      <field name="model">jm.custom.protocol</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <group>
+                <field name="custom" options="{'no_create': True, 'no_open':True}"/>
+                <field name="batch" options="{'no_create': True, 'no_open':True}"/>
+                <field name="level" options="{'no_create': True, 'no_open':True}"/>
+                <field name="school" options="{'no_create': True, 'no_open':True}"/>
+                <field name="up_per"/>
+              </group>
+              <group>
+              </group>
+            </group>
+            <group>
+              <field name="items">
+                <tree string="list" editable="bottom">
+                  <field name="item"/>
+                  <field name="money"/>
+                  <field name="way"/>
+                </tree>
+              </field>
+            </group>
+            <group>
+              <group>
+                <field name="attachment" widget="many2many_binary" class="oe_inline" string="附件"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <record id="tree_jm_custom_protocol" model="ir.ui.view">
+        <field name="name">渠道协议tree试图</field>
+        <field name="model">jm.custom.protocol</field>
+        <field name="arch" type="xml">
+            <tree>
+              <field name="custom"/>
+              <field name="batch"/>
+              <field name="level"/>
+              <field name="school"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="action_jm_custom_protocol">
+      <field name="name">渠道协议</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.custom.protocol</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_jm_custom_protocol_from_custom">
+      <field name="name">渠道协议</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.custom.protocol</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('custom', '=', active_id)]</field>
+    </record>
+
+    <record model="ir.ui.view" id="form_jm_custom_add_protocol">
+      <field name="name">客户协议按钮</field>
+      <field name="model">jm.custom</field>
+      <field name="inherit_id" ref="CustomManage.view_from_jm_custom"/>
+      <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" type="action" name="%(jm_custom_protocol.action_jm_custom_protocol_from_custom)d"
+                  icon="fa-usd">
+                  <field string="协议管理" name="protocol_count" widget="statinfo"/>
+                </button>
+            </div>
+      </field>
+    </record>
+      
+
+  </data>
+</openerp>

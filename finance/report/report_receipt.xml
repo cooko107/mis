@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report id="report_receipt"
+                model="jm.student.charge.print.item"
+                string="打印收据"
+                report_type="qweb-html"
+                name="finance.report_receipt"
+                menu="True"/>
+
+
+        <report id="pre_charge_report_receipt"
+                model="jm.pre.charge.student"
+                string="打印收据"
+                report_type="qweb-html"
+                name="finance.pre_charge_report_receipt"
+                menu="True"/>
+
+
+        <act_window id="tju_print_receipt"
+            name="打印票据"
+            src_model="jm.tju.student"
+            res_model="jm.student.charge.print.item"
+            view_type="form" view_mode="form"
+            view_id = 'view_from_print_item'
+            key2="client_action_multi" target="new"
+            context = "{'act_id':active_ids,'act_model':active_model}"
+            />
+
+        <act_window id="syu_print_receipt"
+            name="打印票据"
+            src_model="jm.syu.student"
+            res_model="jm.student.charge.print.item"
+            view_type="form" view_mode="form"
+            view_id = 'view_from_print_item'
+            key2="client_action_multi" target="new"
+            context = "{'act_id':active_ids,'act_model':active_model}"
+            />
+
+        <act_window id="zzu_print_receipt"
+            name="打印票据"
+            src_model="jm.zzu.student"
+            res_model="jm.student.charge.print.item"
+            view_type="form" view_mode="form"
+            view_id = 'view_from_print_item'
+            key2="client_action_multi" target="new"
+            context = "{'act_id':active_ids,'act_model':active_model}"
+            />
+
+        <act_window id="nku_print_receipt"
+            name="打印票据"
+            src_model="jm.nku.student"
+            res_model="jm.student.charge.print.item"
+            view_type="form" view_mode="form"
+            view_id = 'view_from_print_item'
+            key2="client_action_multi" target="new"
+            context = "{'act_id':active_ids,'act_model':active_model}"
+            />
+
+
+        <!--<act_window id="pre_charge_print_receipt"-->
+            <!--name="打印票据"-->
+            <!--src_model="jm.pre.charge.student"-->
+            <!--res_model="jm.student.pre.charge.print.item"-->
+            <!--view_type="form" view_mode="form"-->
+            <!--view_id = 'view_from_pre_charge_print_item'-->
+            <!--key2="client_action_multi" target="new"-->
+            <!--context = "{'act_id':active_ids}"-->
+            <!--/>-->
+    </data>
+</openerp>

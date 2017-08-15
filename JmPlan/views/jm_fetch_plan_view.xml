@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- explicit list view definition -->
+    <!-- 报名点1 -->
+
+
+    <record model="ir.ui.view" id="view_from_jm_plan">
+      <field name="name">jm.custom.form</field>
+      <field name="model">jm.fetch.plan</field>
+      <field name="arch" type="xml">
+          <form string = "客户信息" Create="false">
+            <sheet>
+                  <group>
+                      <field name = "website" required = '1'/>
+                      <field name = "website_comp" required = '1'/>
+                  </group>
+            </sheet>
+          </form>
+      </field>
+    </record>
+
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.ui.view" id="view_tree_jm_plan">
+      <field name="name">jm.plan.tree</field>
+      <field name="model">jm.fetch.plan</field>
+      <field name="priority">1</field>
+      <field name="arch" type = "xml">
+        <tree string = "">
+          <field name = "website"/>
+          <field name = "website_comp"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="action_jm_plan">
+      <field name="name">客户信息管理</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.fetch.plan</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type = "xml">
+        <p class = "oe.view.nocontent_create">
+
+        </p>
+      </field>
+    </record>
+
+    <!-- Top menu item -->
+    <menuitem name="网站检测" id="jmedu_web_menu1" sequence="4"/>
+    <menuitem name="网站列表" id="jmedu_web_menu2" parent="jmedu_web_menu1" sequence="1" action="action_jm_plan"/>
+
+    <!-- menu categories -->
+
+  </data>
+</openerp>

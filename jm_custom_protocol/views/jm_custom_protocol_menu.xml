@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <menuitem name="协议管理" id="jmedu_custom_protocol_manage" parent="CustomManage.jmedu_custom_menu1"/>
+    <menuitem name="协议信息" id="jmedu_custom_protocol" parent="jmedu_custom_protocol_manage"
+              sequence="1" action="action_jm_custom_protocol"/>
+  </data>
+</openerp>

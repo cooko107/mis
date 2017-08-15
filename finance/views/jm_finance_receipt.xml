@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--学生打印视图-->
+    <record model="ir.ui.view" id="view_from_print_item">
+      <field name="name">学生收费打印form视图</field>
+      <field name="model">jm.student.charge.print.item</field>
+      <field name="arch" type="xml">
+          <form>
+            <sheet>
+              <field name="print_item" domain="[('school_id', '=', context['act_id']),('school_table','=', context['act_model'])]"
+                     options="{'no_create': True}"/>
+              <group>
+                <field name="project"/>
+              </group>
+              <button name="print_msg" string="打印" type="object" class="oe_highlight oe_right" />
+            </sheet>
+          </form>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="view_from_pre_charge_print_item">
+      <field name="name">学生收费打印form视图</field>
+      <field name="model">jm.student.pre.charge.print.item</field>
+      <field name="arch" type="xml">
+          <form>
+            <sheet>
+              <field name="print_item" domain="[('pre_charge_con', '=', context['act_id'])]" options="{'no_create': True}"/>
+              <group>
+                <field name="project"/>
+              </group>
+              <button name="print_msg" string="打印" type="object" class="oe_highlight oe_right" />
+            </sheet>
+          </form>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="view_from_finance_receipt">
+      <field name="name">票据管理form视图</field>
+      <field name="model">jm.finance.receipt</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <group>
+                <field name="num"/>
+                <field name="state"/>
+                <field name="name"/>
+                <field name="project"/>
+              </group>
+              <group>
+                <field name="money"/>
+                <field name="fake_code"/>
+                <field name="drawer"/>
+                <field name="time"/>
+              </group>
+
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="view_tree_finance_receipt">
+      <field name="name">票据管理tree视图</field>
+      <field name="model">jm.finance.receipt</field>
+      <field name="priority">1</field>
+      <field name="arch" type = "xml">
+        <tree>
+
+            <field name = "num"/>
+            <field name = "state"/>
+            <field name = "name"/>
+            <field name = "project"/>
+            <field name = "money" />
+            <field name = "fake_code"/>
+            <field name = "drawer"/>
+            <field name = "time"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_finance_receipt">
+      <field name="name">票据管理</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.finance.receipt</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_finance_receipt_from_stu">
+      <field name="name">票据管理</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.finance.receipt</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('finance_order', '=', active_id)]</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="view_from_finance_receipt_deactivate">
+      <field name="name">票据作废form视图</field>
+      <field name="model">jm.finance.receipt.deactivate</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+            <button name="receipt_deactivate_to_confirm" states="init" string="提交审核" type="workflow" class="oe_highlight" />
+            <button name="receipt_deactivate_to_complete" states="confirm" string="审核通过" type="workflow" class="oe_highlight" />
+            <button name="receipt_deactivate_back_init" states="confirm" string="审核不通过" type="workflow" class="oe_highlight"/>
+            <field name="state" widget="statusbar" statusbar_visible="init,confirm,complete"/>
+          </header>
+          <sheet>
+
+            <group>
+              <group>
+                <field name="num"/>
+                <field name="name" readonly="1"/>
+                <field name="project" readonly="1"/>
+              </group>
+              <group>
+                <field name="money" readonly="1"/>
+                <field name="fake_code" readonly="1"/>
+                <field name="drawer" readonly="1"/>
+              </group>
+
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="view_tree_finance_receipt_deactivate">
+      <field name="name">票据作废tree视图</field>
+      <field name="model">jm.finance.receipt.deactivate</field>
+      <field name="priority">1</field>
+      <field name="arch" type = "xml">
+        <tree>
+            <field name = "state"/>
+            <field name = "num"/>
+            <field name = "name"/>
+            <field name = "project"/>
+            <field name = "money" />
+            <field name = "fake_code"/>
+            <field name = "drawer"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_finance_receipt_deactivate">
+      <field name="name">票据作废管理</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.finance.receipt.deactivate</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="context">{'form_no_edit':[('state','in',['confirm','complete'])]}</field>
+    </record>
+
+  </data>
+</openerp>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="operationsuccess" name="purchase requisition assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/DistanceEdu/static/src/js/operation_fail_notify.js"></script>
+                <script type="text/javascript" src="/DistanceEdu/static/src/js/operation_success_notify.js"></script>
+            </xpath>
+        </template>
+    </data>
+</openerp>

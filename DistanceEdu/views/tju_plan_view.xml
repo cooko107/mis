@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="view_from_jm_tju_plan">
+      <field name="name">天大招生计划form视图</field>
+      <field name="model">jm.tju.plan</field>
+      <field name="arch" type="xml">
+          <form string = "" create="false" edit="false">
+            <sheet>
+              <group>
+                <group>
+                  <field name="batch"/>
+                  <field name="type"/>
+                  <field name="study_center"/>
+                  <field name="show_name"/>
+
+                </group>
+              </group>
+              <group>
+                <field name="items">
+                  <tree string="list" editable="bottom">
+                    <field name="item"/>
+                    <field name="money"/>
+                  </tree>
+
+                </field>
+              </group>
+              <group>
+                <field name = 'remarks'/>
+              </group>
+
+            </sheet>
+          </form>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.ui.view" id="view_tree_jm_tju_plan">
+      <field name="name">天大招生计划tree视图</field>
+      <field name="model">jm.tju.plan</field>
+      <field name="priority">1</field>
+      <field name="arch" type = "xml">
+        <tree string = "" create="false">
+          <field name="batch"/>
+          <field name="type"/>
+          <field name="study_center"/>
+          <field name="show_name"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <record id="view_jm_tju_plan_search" model="ir.ui.view">
+        <field name="name">天大招生计划搜索</field>
+        <field name="model">jm.tju.plan</field>
+        <field name="arch" type="xml">
+            <search string="plan">
+                <filter name="normal" string="正常显示" domain="[('major','=','1')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_jm_tju_plan">
+      <field name="name">天大招生计划查看</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.tju.plan</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[]</field>
+      <field name="search_view_id" ref="view_jm_tju_plan_search"/>
+      <field name="context">{'search_default_normal': 1}</field>
+      <field name="help" type = "xml">
+        <p class = "oe.view.nocontent_create">
+        </p>
+      </field>
+    </record>
+
+
+
+    <!--<record id="action_jm_tju_plan_delete" model="ir.actions.server">-->
+      <!--<field name="name">全部删除</field>-->
+      <!--<field name="model_id" ref="model_jm_tju_plan"/>-->
+      <!--<field name="code">-->
+          <!--self.delete(cr, uid, context=context)-->
+      <!--</field>-->
+    <!--</record>-->
+
+    <!--<record id="jm_tju_delete_plan" model="ir.values">-->
+      <!--<field eval="'client_action_multi'" name="key2"/>-->
+      <!--<field eval="'jm.tju.plan'" name="model"/>-->
+      <!--<field name="name">全部删除</field>-->
+      <!--<field eval="'ir.actions.server,%d'%action_jm_tju_plan_delete" name="value"/>-->
+    <!--</record>-->
+
+    <menuitem name="远程招生" id="ol_edu" sequence="4"/>
+    <menuitem name="学生信息" id="stu_info" parent="ol_edu" sequence="1"/>
+    <menuitem name="学生信息" id="stu_info1" parent="stu_info" sequence="1" action="action_jm_student"/>
+    <!--<menuitem name="特殊收费登记" id="stu_sz_charge" parent="ol_edu" sequence="1"/>-->
+    <!--<menuitem name="特殊收费登记" id="stu_sz_charge1" parent="stu_sz_charge" sequence="1" action="action_jm_sz_student_charge_confirm"/>-->
+    <!--<menuitem name="学生多报管理" id="stu_multi_school" parent="ol_edu" sequence="2"/>-->
+    <!--<menuitem name="学生多报管理" id="stu_multi_school_manage" parent="stu_multi_school" sequence="1" action="action_jm_multi_school_student"/>-->
+    <!--天大-->
+    <menuitem name="天津大学" id="tju" parent="ol_edu" sequence="3"/>
+    <!--<menuitem name="单个学生报名" id="jm_tju_student_single" parent="tju" sequence='2' action="action_tju_student_single"/>-->
+    <menuitem name="招生计划生成" id="jm_tju_plan_generate" parent="tju" sequence='1' action="action_jm_tju_plan_generate"/>
+    <menuitem name="招生计划查看" id="jm_tju_recruit_plan" parent="tju" sequence='1' action="action_jm_tju_plan"/>
+    <menuitem name="高校报名信息导入" id="jm_tju_student_updata" parent="tju" sequence='3' action="action_jm_tju_student_update"/>
+    <menuitem name="高校学籍信息导入" id="jm_tju_student_updata2" parent="tju" sequence='4' action="action_jm_tju_student_update2"/>
+    <menuitem name="学生归属信息完善" id="jm_tju_student_not_comp" parent="tju" sequence='5' action="jm_tju_student_not"/>
+    <!--<menuitem name="学生收费信息修改" id="jm_tju_student_change_fee" parent="tju" sequence='6' action="action_tju_student_change_fee"/>-->
+    <menuitem name="学生报名信息查询" id="jm_tju_student" parent="tju" sequence='7' action="action_jm_tju_student"/>
+    <menuitem name="学生报名信息统计" id="jm_tju_student_count" parent="tju" sequence="8" action="action_jm_tju_student_count"/>
+    <!--<menuitem name="学习中心招生统计" id="jm_tju_report_menu" parent="tju" sequence='5' action="action_jm_tju_report"/>
+    <menuitem name="渠道招生统计" id="jm_tju_report2_menu" parent="tju" sequence='6' action="action_jm_tju_report2"/>-->
+    <!--石大-->
+    <menuitem name="石油大学" id="syu" parent="ol_edu"/>
+    <menuitem name="招生计划查看" id="jm_syu_recruit_plan" parent="syu" sequence="2" action="action_jm_syu_plan"/>
+    <menuitem name="招生计划生成" id="jm_syu_plan_generate" parent="syu" sequence="1" action="action_jm_syu_plan_generate"/>
+    <!--<menuitem name="单个学生报名" id="jm_syu_student_single" parent="syu" sequence="3" action="action_jm_syu_student_single"/>-->
+    <menuitem name="高校报名导入(已录取)" id="jm_syu_student_update" parent="syu" sequence="4" action="action_jm_syu_student_update"/>
+    <!--<menuitem name="高校报名导入(未确认)" id="jm_syu_student_update2" parent="syu" sequence="3" action="action_jm_syu_student_update2"/>-->
+    <!--<menuitem name="学生收费信息修改" id="jm_syu_student_change_fee" parent="syu" sequence='5' action="action_syu_student_change_fee"/>-->
+    <menuitem name="学生报名信息查询" id="jm_syu_student" parent="syu" sequence="6" action="action_jm_syu_student"/>
+    <menuitem name="学生报名信息统计" id="jm_syu_student_count" parent="syu" sequence="7" action="action_jm_syu_student_count"/>
+
+    <!--南开-->
+    <menuitem name="南开大学" id="nku" parent="ol_edu"/>
+    <menuitem name="招生计划生成" id="jm_nku_plan_generate" parent="nku" sequence="1" action="action_jm_nku_plan_generate"/>
+    <menuitem name="招生计划查看" id="jm_nku_recruit_plan" parent="nku" sequence="2" action="action_jm_nku_plan"/>
+    <menuitem name="高校学生信息导入" id="jm_nku_student_import" parent="nku" sequence="3" action="action_jm_nku_student_update"/>
+    <menuitem name="学生报名信息查询" id="jm_nku_student" parent="nku" sequence="4" action="action_jm_nku_student"/>
+    <!--郑大-->
+    <menuitem name="郑州大学" id="zzu" parent="ol_edu"/>
+    <menuitem name="招生计划查看" id="jm_zzu_recruit_plan" parent="zzu" sequence="2" action="action_jm_zzu_plan"/>
+    <menuitem name="招生计划生成" id="jm_zzu_plan_generate" parent="zzu" sequence="1" action="action_jm_zzu_plan_generate"/>
+    <!--<menuitem name="单个学生报名" id="jm_zzu_student_single" parent="zzu" sequence="3" action="action_jm_zzu_student_single"/>-->
+    <menuitem name="高校学生信息导入" id="jm_zzu_student_update" parent="zzu" sequence='4' action="action_jm_zzu_student_update"/>
+    <!--<menuitem name="学生收费信息修改" id="jm_zzu_student_change_fee" parent="zzu" sequence='5' action="action_zzu_student_change_fee"/>-->
+    <menuitem name="学生报名信息查询" id="jm_zzu_student" parent="zzu" sequence="6" action="action_jm_zzu_student"/>
+    <menuitem name="学生报名信息统计" id="jm_zzu_student_count" parent="zzu" sequence="7" action="action_jm_zzu_student_count"/>
+    <!--<menuitem name="学习中心招生统计" id="jm_zzu_report_menu" parent="zzu" sequence='5' action="action_jm_zzu_report"/>
+    <menuitem name="渠道招生统计" id="jm_zzu_report2_menu" parent="zzu" sequence='6' action="action_jm_zzu_report2"/>-->
+  </data>
+</openerp>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+	<record id="distance_base_data" model="res.groups">
+	  <field name="name">远程基础数据访问</field>
+	</record>
+
+    <record model="ir.module.category" id="module_category_distanceedu_tju">
+        <field name="name">远程天大</field>
+        <field name="description">远程天大人员分组</field>
+        <field name="sequence">24</field>
+    </record>
+
+  	<record id="distance_tju_users" model="res.groups">
+	  <field name="name">普通用户</field>
+	  <field name="category_id" ref="module_category_distanceedu_tju"/>
+	  <field name="implied_ids" eval="[(4, ref('distance_base_data'))]"/>
+	</record>
+
+	<record id="distance_tju_teacher" model="res.groups">
+	  <field name="name">招生用户</field>
+	  <field name="category_id" ref="module_category_distanceedu_tju"/>
+	  <field name="implied_ids" eval="[(4, ref('distance_tju_users'))]"/>
+	</record>
+
+    <record id="distance_tju_manager" model="res.groups">
+	  <field name="name">管理员</field>
+	  <field name="category_id" ref="module_category_distanceedu_tju"/>
+	  <field name="implied_ids" eval="[(4, ref('distance_tju_teacher'))]"/>
+	</record>
+
+    <record model="ir.module.category" id="module_category_distanceedu_syu">
+        <field name="name">远程石大</field>
+        <field name="description">远程石大人员分组</field>
+        <field name="sequence">25</field>
+    </record>
+
+  	<record id="distance_syu_users" model="res.groups">
+	  <field name="name">普通用户</field>
+	  <field name="category_id" ref="module_category_distanceedu_syu"/>
+	  <field name="implied_ids" eval="[(4, ref('distance_base_data'))]"/>
+	</record>
+
+	<record id="distance_syu_teacher" model="res.groups">
+	  <field name="name">招生用户</field>
+	  <field name="category_id" ref="module_category_distanceedu_syu"/>
+	  <field name="implied_ids" eval="[(4, ref('distance_syu_users'))]"/>
+	</record>
+
+    <record id="distance_syu_manager" model="res.groups">
+	  <field name="name">管理员</field>
+	  <field name="category_id" ref="module_category_distanceedu_syu"/>
+	  <field name="implied_ids" eval="[(4, ref('distance_syu_teacher'))]"/>
+	</record>
+
+    <record model="ir.module.category" id="module_category_distanceedu_zzu">
+        <field name="name">远程郑大</field>
+        <field name="description">远程郑大人员分组</field>
+        <field name="sequence">26</field>
+    </record>
+
+  	<record id="distance_zzu_users" model="res.groups">
+	  <field name="name">普通用户</field>
+	  <field name="category_id" ref="module_category_distanceedu_zzu"/>
+	  <field name="implied_ids" eval="[(4, ref('distance_base_data'))]"/>
+	</record>
+
+	<record id="distance_zzu_teacher" model="res.groups">
+	  <field name="name">招生用户</field>
+	  <field name="category_id" ref="module_category_distanceedu_zzu"/>
+	  <field name="implied_ids" eval="[(4, ref('distance_zzu_users'))]"/>
+	</record>
+
+    <record id="distance_zzu_manager" model="res.groups">
+	  <field name="name">管理员</field>
+	  <field name="category_id" ref="module_category_distanceedu_zzu"/>
+	  <field name="implied_ids" eval="[(4, ref('distance_zzu_teacher'))]"/>
+	</record>
+
+
+  </data>
+</openerp>

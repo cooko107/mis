@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+ <!--设置所要选择的大学-->
+        <record model="ir.ui.view" id="school_form_view">
+            <field name="name">school.form</field>
+            <field name="model">jm.school</field>
+            <field name="arch" type="xml">
+                <form string="school Form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="value"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- override the automatically generated list view for courses -->
+        <record model="ir.ui.view" id="school_tree_view">
+            <field name="name">school.tree</field>
+            <field name="model">jm.school</field>
+            <field name="arch" type="xml">
+                <tree string="school Tree">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+<!--设置所要选择的专业-->
+        <record model="ir.ui.view" id="major_form_view">
+            <field name="name">major.form</field>
+            <field name="model">jm.major</field>
+            <field name="arch" type="xml">
+                <form string="school Form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- override the automatically generated list view for courses -->
+        <record model="ir.ui.view" id="major_tree_view">
+            <field name="name">major.tree</field>
+            <field name="model">jm.major</field>
+            <field name="arch" type="xml">
+                <tree string="school Tree">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+ <!--设置所要选择的层次-->
+        <record model="ir.ui.view" id="level_form_view">
+            <field name="name">level.form</field>
+            <field name="model">jm.level</field>
+            <field name="arch" type="xml">
+                <form string="school Form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- override the automatically generated list view for courses -->
+        <record model="ir.ui.view" id="level_tree_view">
+            <field name="name">level.tree</field>
+            <field name="model">jm.level</field>
+            <field name="arch" type="xml">
+                <tree string="school Tree">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+ <!--设置所要选择的学习形式-->
+        <record model="ir.ui.view" id="batch_form_view">
+            <field name="name">batch.form</field>
+            <field name="model">jm.batch</field>
+            <field name="arch" type="xml">
+                <form string="school Form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- override the automatically generated list view for courses -->
+        <record model="ir.ui.view" id="batch_tree_view">
+            <field name="name">batch.tree</field>
+            <field name="model">jm.batch</field>
+            <field name="arch" type="xml">
+                <tree string="batch Tree">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <!--设置所要选择的学习中心-->
+        <record model="ir.ui.view" id="sc_form_view">
+            <field name="name">sc.form</field>
+            <field name="model">jm.sc</field>
+            <field name="arch" type="xml">
+                <form string="sc Form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sc_tree_view">
+            <field name="name">sc.tree</field>
+            <field name="model">jm.sc</field>
+            <field name="arch" type="xml">
+                <tree string="sc Tree">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="form_view_fee_project">
+            <field name="name">收费项目form视图</field>
+            <field name="model">jm.fee.project</field>
+            <field name="arch" type="xml">
+                <form string="sc Form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="value"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="tree_view_fee_project">
+            <field name="name">收费项目form视图</field>
+            <field name="model">jm.fee.project</field>
+            <field name="arch" type="xml">
+                <tree string="sc Tree">
+                    <field name="name"/>
+                    <field name="value"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- window action -->
+        <!--
+            The following tag is an action definition for a "window action",
+            that is an action opening a view or a set of views
+            注意，当没有指定View视图的时候，默认是显示所有的字段，而且排列无序。
+        -->
+       <!--学校视图-->
+        <record model="ir.actions.act_window" id="school_list_action">
+            <field name="name">学校名称</field>
+            <field name="res_model">jm.school</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">创建第一所学校的名称
+                </p>
+            </field>
+        </record>
+        <!--专业视图-->
+        <record model="ir.actions.act_window" id="major_list_action">
+            <field name="name">专业名称</field>
+            <field name="res_model">jm.major</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">创建第一条学校开设专业
+                </p>
+            </field>
+        </record>
+        <!--层次视图-->
+        <record model="ir.actions.act_window" id="level_list_action">
+            <field name="name">学习层次</field>
+            <field name="res_model">jm.level</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">创建第一个学习的层次
+                </p>
+            </field>
+        </record>
+        <!--学习形式视图-->
+        <record model="ir.actions.act_window" id="batch_list_action">
+            <field name="name">学习形式</field>
+            <field name="res_model">jm.batch</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">创建第一个学习批次
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="sc_list_action">
+            <field name="name">学习中心</field>
+            <field name="res_model">jm.sc</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">创建第一个学习中心
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_fee_project">
+            <field name="name">收费项目</field>
+            <field name="res_model">jm.fee.project</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!--浙江省成教管理中心，学生报名信息，视图-->
+        <!-- 最顶部菜单-->
+        <menuitem id="main_base_menu" name="基础数据" sequence="2"/>
+        <!-- 左侧第一层菜单 -->
+        <menuitem id="chengjiao_menu" name="基础信息设置"   parent="main_base_menu"/>
+                <!--左侧第二层菜单.学校-->
+        <menuitem id="mode_menu" name="学习批次" parent="chengjiao_menu"      action="batch_list_action"/>
+        <!--左侧第二层菜单.层次-->
+        <menuitem id="level_menu" name="学习层次" parent="chengjiao_menu"     action="level_list_action"/>
+        <!--左侧第二层菜单.学习形式-->
+        <menuitem id="sc_menu" name="学习中心" parent="chengjiao_menu"      action="sc_list_action"/>
+        <menuitem id="school_menu" name="学校名称" parent="chengjiao_menu"    action="school_list_action"/>
+        <!--左侧第二层菜单.专业-->
+        <menuitem id="major_menu" name="学校专业" parent="chengjiao_menu"     action="major_list_action"/>
+        <menuitem id="fee_project_menu" name="收费项目" parent="chengjiao_menu"     action="action_fee_project"/>
+
+    </data>
+</openerp>

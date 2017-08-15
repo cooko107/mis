@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- explicit list view definition -->
+    <!-- 报名点1 -->
+    <record model="ir.ui.view" id="view_from_jm_de_school">
+      <field name="name">jm.de.school.form</field>
+      <field name="model">jm.de.school</field>
+      <field name="arch" type="xml">
+          <form string = "">
+            <sheet>
+                  <group>
+                      <field name = "name" required = '1'/>
+                  </group>
+            </sheet>
+          </form>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.ui.view" id="view_tree_jm_de_school">
+      <field name="name">jm.de.school.tree</field>
+      <field name="model">jm.de.school</field>
+      <field name="priority">1</field>
+      <field name="arch" type = "xml">
+        <tree string = "">
+          <field name = "name"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="action_jm_de_school">
+      <field name="name">学校管理</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.de.school</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type = "xml">
+        <p class = "oe.view.nocontent_create">
+          请新建学校信息
+        </p>
+      </field>
+    </record>
+
+  </data>
+</openerp>

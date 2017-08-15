@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+  	<record id="finance_users" model="res.groups">
+	  <field name="name">普通用户</field>
+	  <field name="category_id" ref="module_category_finance"/>
+	  <field name="users" eval=""/>
+	</record>
+
+    <record id="finance_manager" model="res.groups">
+	  <field name="name">管理员</field>
+	  <field name="category_id" ref="module_category_finance"/>
+	  <field name="implied_ids" eval="[(4, ref('finance_users'))]"/>
+	</record>
+  </data>
+</openerp>

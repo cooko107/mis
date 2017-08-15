@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!--郑大收费导入确认视图-->
+    <record id="view_form_zzu_up_school_confirm" model="ir.ui.view">
+        <field name="name">zzu.up.school.fee.confirm.form</field>
+        <field name="model">jm.zzu.up.school.fee.confirm</field>
+        <field name="arch" type="xml">
+            <form string="Confirm Draft Invoices">
+                <p class="oe_grey">
+                    导入即进入审批流程
+                </p>
+                <footer>
+                    <button string="确认导入" name="confirm_import_up" type="object" default_focus="1" class="btn-primary"/>
+                    <button string="取消" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!--郑大收费导入视图-->
+
+    <record model="ir.ui.view" id="view_form_zzu_up_school_import">
+      <field name="name">郑大学生收费导入form视图</field>
+      <field name="model">jm.zzu.up.school.fee.import</field>
+      <field name="arch" type="xml">
+          <form>
+            <sheet>
+              <group>
+                <group>
+                  <field name="school_code" required="1"/>
+                  <field name="project" required="1"/>
+                  <field name="money" required="1"/>
+                  <field name="time" required="1"/>
+                </group>
+              </group>
+            </sheet>
+          </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_tree_zzu_up_school_import">
+      <field name="name">郑大学生收费导入tree视图</field>
+      <field name="model">jm.zzu.up.school.fee.import</field>
+      <field name="priority">1</field>
+      <field name="arch" type = "xml">
+        <tree>
+          <field name="batch"/>
+          <field name="name"/>
+          <field name="school_code"/>
+          <field name="project"/>
+          <field name="money"/>
+          <field name="time"/>
+          <field name="state"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_zzu_up_school_import">
+      <field name="name">郑大学生收费导入</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.zzu.up.school.fee.import</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <act_window id="zzu_up_fee_confirm"
+            name="导入选中信息"
+            src_model="jm.zzu.up.school.fee.import"
+            res_model="jm.zzu.up.school.fee.confirm"
+            view_type="form" view_mode="form"
+            view_id = 'view_form_zzu_up_school_confirm'
+            key2="client_action_multi" target="new"
+            />
+
+
+
+    <!--石大上缴导入确认视图-->
+    <record id="view_form_syu_up_school_confirm" model="ir.ui.view">
+        <field name="name">syu.up.school.fee.confirm.form</field>
+        <field name="model">jm.syu.up.school.fee.confirm</field>
+        <field name="arch" type="xml">
+            <form string="Confirm Draft Invoices">
+                <p class="oe_grey">
+                    导入即进入审批流程
+                </p>
+                <footer>
+                    <button string="确认导入" name="confirm_import_up" type="object" default_focus="1" class="btn-primary"/>
+                    <button string="取消" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!--石大收费导入视图-->
+    <record model="ir.ui.view" id="view_tree_syu_up_school_import">
+      <field name="name">石大学生上缴导入tree视图</field>
+      <field name="model">jm.syu.up.school.fee.import</field>
+      <field name="priority">1</field>
+      <field name="arch" type = "xml">
+        <tree>
+          <field name="batch"/>
+          <field name="name"/>
+          <field name="school_code"/>
+          <field name="project"/>
+          <field name="money"/>
+          <field name="time"/>
+          <field name="state"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_syu_up_school_import">
+      <field name="name">石大学生上缴导入</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.syu.up.school.fee.import</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree</field>
+    </record>
+
+    <act_window id="syu_up_fee_confirm"
+            name="导入选中信息"
+            src_model="jm.syu.up.school.fee.import"
+            res_model="jm.syu.up.school.fee.confirm"
+            view_type="form" view_mode="form"
+            view_id = 'view_form_zzu_up_school_confirm'
+            key2="client_action_multi" target="new"
+            />
+
+
+
+    <record id="view_form_tju_up_school_confirm" model="ir.ui.view">
+        <field name="name">tju.up.school.fee.confirm.form</field>
+        <field name="model">jm.tju.up.school.fee.confirm</field>
+        <field name="arch" type="xml">
+            <form string="Confirm Draft Invoices">
+                <p class="oe_grey">
+                    导入即进入审批流程
+                </p>
+                <footer>
+                    <button string="确认导入" name="confirm_import_up" type="object" default_focus="1" class="btn-primary"/>
+                    <button string="取消" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_tree_tju_up_school_import">
+      <field name="name">天大学生收费导入tree视图</field>
+      <field name="model">jm.tju.up.school.fee.import</field>
+      <field name="priority">1</field>
+      <field name="arch" type = "xml">
+        <tree>
+          <field name="batch"/>
+          <field name="name"/>
+          <field name="school_code"/>
+          <field name="project"/>
+          <field name="money"/>
+          <field name="time"/>
+          <field name="state"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_tju_up_school_import">
+      <field name="name">天大学生收费导入</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.tju.up.school.fee.import</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <act_window id="tju_up_fee_confirm"
+            name="导入选中信息"
+            src_model="jm.tju.up.school.fee.import"
+            res_model="jm.tju.up.school.fee.confirm"
+            view_type="form" view_mode="form"
+            view_id = 'view_form_zzu_up_school_confirm'
+            key2="client_action_multi" target="new"
+            />
+
+
+
+    <record id="view_form_nku_up_school_confirm" model="ir.ui.view">
+        <field name="name">南开上缴导入确认form视图</field>
+        <field name="model">jm.nku.up.school.fee.confirm</field>
+        <field name="arch" type="xml">
+            <form string="Confirm Draft Invoices">
+                <p class="oe_grey">
+                    导入即进入审批流程
+                </p>
+                <footer>
+                    <button string="确认导入" name="confirm_import_up" type="object" default_focus="1" class="btn-primary"/>
+                    <button string="取消" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_tree_nku_up_school_import">
+      <field name="name">南开上缴导入确认tree视图</field>
+      <field name="model">jm.nku.up.school.fee.import</field>
+      <field name="priority">1</field>
+      <field name="arch" type = "xml">
+        <tree>
+          <field name="batch"/>
+          <field name="name"/>
+          <field name="school_code"/>
+          <field name="project"/>
+          <field name="money"/>
+          <field name="time"/>
+          <field name="state"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_nku_up_school_import">
+      <field name="name">南开上缴导入确认</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.nku.up.school.fee.import</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <act_window id="nku_up_fee_confirm"
+            name="导入选中信息"
+            src_model="jm.nku.up.school.fee.import"
+            res_model="jm.nku.up.school.fee.confirm"
+            view_type="form" view_mode="form"
+            view_id = 'view_form_nku_up_school_confirm'
+            key2="client_action_multi" target="new"
+            />
+
+
+  </data>
+</openerp>

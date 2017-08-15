@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="plus_form_view">
+      <field name="name">student.plus.form</field>
+      <field name="model">jm.student</field>
+      <field name="inherit_id" ref="DistanceEdu.view_from_jm_student"/>
+      <field name="arch" type="xml">
+            <field name="name" position="after">
+
+                <field name="qq" required="1"/>
+            </field>
+      </field>
+    </record>
+  </data>
+</openerp>

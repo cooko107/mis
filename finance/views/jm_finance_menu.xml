@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <menuitem name="财务" id="jm_finance" sequence="5"/>
+
+    <menuitem name="收费到今明" id="jm_charge_to_us" sequence="1" parent="jm_finance"/>
+    <menuitem name="天大学生收费" id="jm_tju_student_charge" parent="jm_charge_to_us" sequence="1" groups='' action="action_jm_tju_student_charge"/>
+    <menuitem name="石大学生收费" id="jm_syu_student_charge" parent="jm_charge_to_us" sequence="2" groups='' action="action_jm_syu_student_charge"/>
+    <menuitem name="郑大学生收费" id="jm_zzu_student_charge" parent="jm_charge_to_us" sequence="3" groups='' action="action_jm_zzu_student_charge"/>
+    <menuitem name="南开学生收费" id="jm_nku_student_charge" parent="jm_charge_to_us" sequence="4" groups='' action="action_jm_nku_student_charge"/>
+    <menuitem name="学生收费导入" id="jm_student_charge_import" parent="jm_charge_to_us" sequence="5" groups='' action="action_student_charge_import"/>
+
+    <menuitem name="学生预缴费" id="jm_student_pre_charge" parent="jm_charge_to_us" sequence="10" action="action_jm_pre_charge_student"/>
+
+
+    <menuitem name="收费到高校" id="jm_charge_to_school" sequence="2" parent="jm_finance"/>
+    <!--<menuitem name="天大上缴登记" id="upload_school" parent="jm_charge" sequence="4" action="action_jm_tju_up_school_fee"/>-->
+    <menuitem name="天大上缴导入" id="tju_student_charge_approve" parent="jm_charge_to_school" sequence="1" action="action_tju_up_school_import"/>
+    <menuitem name="石大上缴导入" id="syu_student_charge_approve" parent="jm_charge_to_school" sequence="2" action="action_syu_up_school_import"/>
+    <menuitem name="郑大上缴导入" id="zzu_student_charge_approve" parent="jm_charge_to_school" sequence="3" action="action_zzu_up_school_import"/>
+    <menuitem name="南开上缴导入" id="nku_student_charge_approve" parent="jm_charge_to_school" sequence="4" action="action_nku_up_school_import"/>
+
+    <menuitem name="学生收费审核" id="student_charge_approve" parent="jm_finance" sequence="3"/>
+    <menuitem name="天大收费审核" id="jm_tju_student_charge_confirm" parent="student_charge_approve" action="action_jm_tju_student_charge_confirm"/>
+    <menuitem name="石大收费审核" id="jm_syu_student_charge_confirm" parent="student_charge_approve" action="action_jm_syu_student_charge_confirm"/>
+    <menuitem name="郑大收费审核" id="jm_zzu_student_charge_confirm" parent="student_charge_approve" action="action_jm_zzu_student_charge_confirm"/>
+    <menuitem name="南开收费审核" id="jm_nku_student_charge_confirm" parent="student_charge_approve" action="action_jm_nku_student_charge_confirm"/>
+
+    <!--<menuitem name="收费查询" id="jm_charge_search" sequence="4" parent="jm_finance"/>-->
+    <!--<menuitem name="已缴费查询" id="jm_student_charged_search" parent="jm_charge_search" sequence="1" action="action_jm_charged_search"/>-->
+    <!--<menuitem name="学生收费查询" id="jm_student_charged_info" parent="jm_charge_search" sequence="2" action="action_jm_student_charged_info"/>-->
+    <!--<menuitem name="催费名单查询" id="jm_student_no_charge_info" parent="jm_charge_search" sequence="3" action="action_from_jm_no_charge_search"/>-->
+    <!--<menuitem name="未上缴高校查询" id="jm_student_no_up_info" parent="jm_charge_search" sequence="4" action="action_from_jm_no_up_school_search"/>-->
+
+    <menuitem name="配置" id="jm_finance_setting" sequence="5" parent="jm_finance"/>
+    <menuitem name="收款账户" id="jm_charge_account" parent="jm_finance_setting" action="action_jm_charge_account"/>
+    <menuitem name="票据管理" id="jm_finance_receipt" sequence="6" parent="jm_finance"/>
+    <menuitem name="票据查询" id="jm_finance_receipt_search" parent="jm_finance_receipt" action="action_finance_receipt"/>
+    <!--<menuitem name="票据作废" id="jm_finance_receipt_deactivate" parent="jm_finance_receipt" action="action_finance_receipt_deactivate"/>-->
+
+    <!--<menuitem name="财务" id="jm_finance_1.1" sequence="5"/>-->
+    <!--<menuitem name="收费管理" id="jm_charge_to_us" sequence="1" parent="jm_finance"/>-->
+    <!--<menuitem name="单个收费登记" id="jm_student_charge" parent="jm_charge_to_us" sequence="1" groups='' action="action_jm_student_fee"/>-->
+  </data>
+</openerp>

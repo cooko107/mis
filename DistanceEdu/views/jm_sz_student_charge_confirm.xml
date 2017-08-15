@@ -1,0 +1,87 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<openerp>-->
+  <!--<data>-->
+    <!--&lt;!&ndash; workflow &ndash;&gt;-->
+
+    <!--&lt;!&ndash; form,tree,action &ndash;&gt;-->
+    <!--<record model="ir.ui.view" id="view_from_jm_sz_student_charge_confirm">-->
+      <!--<field name="name">今明数字营销学生收费from视图</field>-->
+      <!--<field name="model">sz.student.charge.confirm</field>-->
+      <!--<field name="arch" type="xml">-->
+          <!--<form string = "">-->
+            <!--<header>-->
+              <!--<button name="to_confirm" states="init" string="提交审批" type="workflow" class="oe_highlight"/>-->
+              <!--<button name="confirm_ok" states="confirm" string="审批通过" type="workflow" class="oe_highlight" />-->
+              <!--<button name="confirm_not_ok" states="confirm" string="审批不通过" type="workflow" class="oe_highlight" />-->
+              <!--<field name="state" widget="statusbar" statusbar_visible="init,confirm,complete"/>-->
+            <!--</header>-->
+            <!--<sheet>-->
+              <!--<group string="学生信息" col="2" >-->
+                <!--<group>-->
+                  <!--<field name = "student_idcard" required="1" options="{'no_create': True}" attrs="{'readonly': [('state', 'in', ('confirm', 'complete'))]}"/>-->
+                  <!--<field name="name"/>-->
+                  <!--<field name = "batch"/>-->
+                <!--</group>-->
+                <!--<group>-->
+                  <!--<field name = "level"/>-->
+                  <!--<field name = "study_center"/>-->
+                  <!--<field name = "major"/>-->
+                <!--</group>-->
+              <!--</group>-->
+              <!--<group string="收费信息">-->
+                <!--<group>-->
+                  <!--<field name="tuition" attrs="{'readonly': [('state', 'in', ('confirm', 'complete'))]}"/>-->
+                  <!--<field name="jc_fee" attrs="{'readonly': [('state', 'in', ('confirm', 'complete'))]}"/>-->
+                  <!--<field name="ptfw_fee" attrs="{'readonly': [('state', 'in', ('confirm', 'complete'))]}"/>-->
+                  <!--<field name="tuition2" attrs="{'readonly': [('state', 'in', ('confirm', 'complete'))]}"/>-->
+                  <!--<field name="jc_fee2" attrs="{'readonly': [('state', 'in', ('confirm', 'complete'))]}"/>-->
+                  <!--<field name="ptfw_fee2" attrs="{'readonly': [('state', 'in', ('confirm', 'complete'))]}"/>-->
+                <!--</group>-->
+                <!--<group>-->
+                  <!--<field name="bm_fee" attrs="{'readonly': [('state', 'in', ('confirm', 'complete'))]}"/>-->
+                  <!--<field name="qcfd_fee" attrs="{'readonly': [('state', 'in', ('confirm', 'complete'))]}"/>-->
+                  <!--<field name="qcfd_fee2" attrs="{'readonly': [('state', 'in', ('confirm', 'complete'))]}"/>-->
+                  <!--<field name="lwzd_fee" attrs="{'readonly': [('state', 'in', ('confirm', 'complete'))]}"/>-->
+                  <!--<field name="dzsx_fee" attrs="{'readonly': [('state', 'in', ('confirm', 'complete'))]}"/>-->
+                <!--</group>-->
+              <!--</group>-->
+              <!--<group>-->
+                <!--<field name="remarks" attrs="{'readonly': [('state', 'in', ('confirm', 'complete'))]}"/>-->
+              <!--</group>-->
+            <!--</sheet>-->
+          <!--</form>-->
+      <!--</field>-->
+    <!--</record>-->
+
+
+    <!--&lt;!&ndash; actions opening views on models &ndash;&gt;-->
+
+    <!--<record model="ir.ui.view" id="view_tree_jm_sz_student_charge_confirm">-->
+      <!--<field name="name">今明数字营销学生收费tree视图</field>-->
+      <!--<field name="model">sz.student.charge.confirm</field>-->
+      <!--<field name="priority">1</field>-->
+      <!--<field name="arch" type = "xml">-->
+        <!--<tree string = "">-->
+          <!--<field name = "student_idcard"/>-->
+          <!--<field name = "name"/>-->
+          <!--<field name = "batch"/>-->
+          <!--<field name = "level"/>-->
+          <!--<field name = "study_center"/>-->
+          <!--<field name = "major"/>-->
+        <!--</tree>-->
+      <!--</field>-->
+    <!--</record>-->
+
+
+    <!--<record model="ir.actions.act_window" id="action_jm_sz_student_charge_confirm">-->
+      <!--<field name="name">今明数字营销学生收费</field>-->
+      <!--<field name="type">ir.actions.act_window</field>-->
+      <!--<field name="res_model">sz.student.charge.confirm</field>-->
+      <!--<field name="view_type">form</field>-->
+      <!--<field name="view_mode">tree,form</field>-->
+
+    <!--</record>-->
+    <!--&lt;!&ndash; Top menu item &ndash;&gt;-->
+
+  <!--</data>-->
+<!--</openerp>-->

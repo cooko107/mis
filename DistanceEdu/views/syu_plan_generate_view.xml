@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+      <record id="view_form_jm_syu_plan_generate" model="ir.ui.view">
+        <field name="name">石大招生计划生成form视图</field>
+        <field name="model">jm.syu.plan.generate</field>
+        <field name="arch" type="xml">
+            <form string="">
+              <sheet>
+                <group>
+                    <group>
+                      <field name="batch" required = '1' options="{'no_create': True, 'no_open':True}"/>
+                    </group>
+                    <group>
+                      <field name="level" required = '1' options="{'no_create': True, 'no_open':True}"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                      <field name="sc" required = '1' options="{'no_create': True, 'no_open':True}"/>
+                    </group>
+                    <group>
+                      <field name="major" required = '1' options="{'no_create': True, 'no_open':True}"/>
+                    </group>
+                </group>
+
+                <group>
+                    <group>
+                        <field name="items">
+                          <tree string="list" editable="bottom">
+                            <field name="item" options="{'no_create': True, 'no_open':True}"/>
+                            <field name="money"/>
+                          </tree>
+
+                        </field>
+                    </group>
+                </group>
+
+                <footer >
+                    <button string="生成招生计划" name="generate_plan" type="object" class="btn-primary"/>
+                </footer>
+              </sheet>
+            </form>
+        </field>
+        </record>
+
+
+        <!--<record model="ir.ui.view" id="view_tree_jm_syu_plan_generate">
+          <field name="name">石大招生计划生成tree视图</field>
+          <field name="model">jm.syu.plan.generate</field>
+          <field name="priority">1</field>
+          <field name="arch" type = "xml">
+            <tree string = "天大报名学生">
+                <field name="batch"/>
+            </tree>
+          </field>
+        </record>-->
+
+        <record model="ir.actions.act_window" id="action_jm_syu_plan_generate">
+          <field name="name">石大招生计划生成</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="res_model">jm.syu.plan.generate</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">form</field>
+          <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                点击新建
+            </p>
+          </field>
+        </record>
+
+  </data>
+</openerp>

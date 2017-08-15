@@ -1,0 +1,93 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<openerp>-->
+  <!--<data>-->
+    <!--&lt;!&ndash; workflow &ndash;&gt;-->
+    <!--<record model="workflow" id="sz_student_charge_confirm_workflow">-->
+        <!--<field name="name">sz_student_charge_confirm_workflow</field>-->
+        <!--&lt;!&ndash; 关联的model &ndash;&gt;-->
+        <!--<field name="osv">sz.student.charge.confirm</field>-->
+        <!--&lt;!&ndash; 是否主动被实例化 &ndash;&gt;-->
+        <!--<field name="on_create">True</field>-->
+    <!--</record>-->
+
+    <!--&lt;!&ndash; workflow.activity 用来指定要调用的model里的方法，一般用来更改state状态&ndash;&gt;-->
+    <!--<record model="workflow.activity" id="sz_student_activity_one">-->
+        <!--&lt;!&ndash; wkf_id 这个activity对应于哪个workflow,这里对应于上面声明的workflow&ndash;&gt;-->
+        <!--<field name="wkf_id" ref="sz_student_charge_confirm_workflow"/>-->
+        <!--<field name="name">sz_student_activity_one</field>-->
+        <!--&lt;!&ndash; dummy 类型用来指定这个activity 是workflow的开始还是结束&ndash;&gt;-->
+        <!--<field name="kind">dummy</field>-->
+        <!--&lt;!&ndash; 开始是flow_start  结束是flow_end&ndash;&gt;-->
+        <!--<field name="flow_start">True</field>-->
+    <!--</record>-->
+
+
+    <!--<record model="workflow.activity" id="sz_student_activity_two">-->
+        <!--<field name="wkf_id" ref="sz_student_charge_confirm_workflow"/>-->
+        <!--<field name="name">sz_student_activity_two</field>-->
+        <!--&lt;!&ndash; function 表示要执行model中的方法&ndash;&gt;-->
+        <!--<field name="kind">function</field>-->
+        <!--&lt;!&ndash; 对应model中的方法&ndash;&gt;-->
+        <!--<field name="action">to_confirm()</field>-->
+    <!--</record>-->
+
+    <!--<record model="workflow.activity" id="sz_student_activity_three">-->
+        <!--<field name="wkf_id" ref="sz_student_charge_confirm_workflow"/>-->
+        <!--<field name="name">sz_student_activity_three</field>-->
+        <!--<field name="kind">function</field>-->
+        <!--<field name="action">to_complete()</field>-->
+    <!--</record>-->
+
+
+    <!--<record model="workflow.activity" id="sz_student_activity_four">-->
+        <!--<field name="wkf_id" ref="sz_student_charge_confirm_workflow"/>-->
+        <!--<field name="name">sz_student_activity_four</field>-->
+        <!--<field name="kind">dummy</field>-->
+        <!--<field name="flow_end">True</field>-->
+    <!--</record>-->
+
+    <!--<record model="workflow.activity" id="sz_student_activity_five">-->
+        <!--<field name="wkf_id" ref="sz_student_charge_confirm_workflow"/>-->
+        <!--<field name="name">sz_student_activity_three</field>-->
+        <!--<field name="kind">function</field>-->
+        <!--<field name="action">back_init()</field>-->
+    <!--</record>-->
+
+    <!--&lt;!&ndash; 相当于一个转换器，用来接受button传来的信号，调用相关的activity&ndash;&gt;-->
+    <!--<record model="workflow.transition" id="sz_student_transition_one">-->
+        <!--<field name="act_from" ref="sz_student_activity_one"/>-->
+        <!--<field name="act_to" ref="sz_student_activity_two"/>-->
+        <!--&lt;!&ndash;<field name="condition">state == 'init'</field>&ndash;&gt;-->
+        <!--<field name="signal">to_confirm</field>-->
+    <!--</record>-->
+
+    <!--<record model="workflow.transition" id="sz_student_transition_two">-->
+        <!--<field name="act_from" ref="sz_student_activity_two"/>-->
+        <!--<field name="act_to" ref="sz_student_activity_three"/>-->
+        <!--<field name="condition">state == 'confirm'</field>-->
+        <!--<field name="signal">confirm_ok</field>-->
+    <!--</record>-->
+
+
+    <!--<record model="workflow.transition" id="sz_student_transition_three">-->
+        <!--<field name="act_from" ref="sz_student_activity_three"/>-->
+        <!--<field name="act_to" ref="sz_student_activity_four"/>-->
+        <!--<field name="condition">state == 'complete'</field>-->
+        <!--<field name="signal">workflow_end</field>-->
+    <!--</record>-->
+
+    <!--<record model="workflow.transition" id="sz_student_transition_four">-->
+        <!--<field name="act_from" ref="sz_student_activity_two"/>-->
+        <!--<field name="act_to" ref="sz_student_activity_five"/>-->
+        <!--<field name="condition">state == 'confirm'</field>-->
+        <!--<field name="signal">confirm_not_ok</field>-->
+    <!--</record>-->
+
+    <!--<record model="workflow.transition" id="sz_student_transition_five">-->
+        <!--<field name="act_from" ref="sz_student_activity_five"/>-->
+        <!--<field name="act_to" ref="sz_student_activity_two"/>-->
+        <!--<field name="condition">state == 'init'</field>-->
+        <!--<field name="signal">to_confirm</field>-->
+    <!--</record>-->
+  <!--</data>-->
+<!--</openerp>-->

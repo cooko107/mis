@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+      <!--form-->
+     <record model="ir.ui.view" id="view_form_jm_tju_student">
+      <field name="name">天大学生form视图</field>
+      <field name="model">jm.tju.student</field>
+      <field name="arch" type="xml">
+          <form create="false">
+            <sheet>
+                  <group string="学生信息">
+                    <group>
+                      <field name="student" required="1"/>
+                      <field name="name_show"/>
+                      <field name="sex_show"/>
+                      <field name="birth_show"/>
+                    </group>
+                    <group>
+                      <field name="nation_show"/>
+                      <field name="native_place_show"/>
+                      <field name="address_show"/>
+                      <field name="phone_show"/>
+                      <field name="wchat_show"/>
+                    </group>
+                  </group>
+                  <group string="最高学历" attrs="{'invisible': [('graduate_school', '=', False)]}">
+                    <group>
+                      <field name="highest_degree"/>
+                      <field name="graduate_time"/>
+                      <field name="graduate_school"/>
+                    </group>
+                    <group>
+                      <field name="graduate_code"/>
+                      <field name="graduate_major"/>
+                      <field name="graduate_cer_code"/>
+                    </group>
+                  </group>
+                  <group string="报名信息">
+                    <group >
+                      <field name = "batch" required = '1' on_change='batch_c(batch)'/>
+                      <field name = "level" required = '1' on_change='level_c(level)'/>
+                      <field name = "study_center" required = '1' on_change='study_center_c(study_center)'/>
+                      <field name = "major" required = '1'/>
+                      <field name = "student_state" required = '0'/>
+                      <field name = "school_state" required = '0'/>
+                      <field name = "reg_time" required = '0'/>
+                      <field name = "reg_code" required = '0'/>
+                      <field name = "entry_date" required = '0'/>
+                      <field name = "study_code" required = '0'/>
+                    </group>
+                    <group string="">
+                      <field name = "zkzh" required = '0'/>
+                      <field name = "school_date" required = '0'/>
+                      <field name = "is_test" required = '0'/>
+                      <field name = "inputer" required = '0'/>
+                      <field name = "inputer_dpt" required = '0'/>
+                      <field name = "beschool" required = '0'/>
+                      <field name = "firstcon" required = '0'/>
+                      <field name = "is_change" required = '0'/>
+                      <field name = "warning" required = '0'/>
+                      <field name = "college_remark" required = '0'/>
+                      <field name = "up_per" invisible="1"/>
+                    </group>
+                  </group>
+                  <notebook>
+
+                  </notebook>
+            </sheet>
+          </form>
+      </field>
+    </record>
+
+
+    <!--tree-->
+    <record model="ir.ui.view" id="view_tree_jm_tju_student">
+      <field name="name">天大学生tree视图</field>
+      <field name="model">jm.tju.student</field>
+      <field name="priority">2</field>
+      <field name="arch" type = "xml">
+        <tree string = "天大报名学生" create="false">
+            <field name = "name_show"/>
+            <field name = "student"/>
+            <field name = "batch" />
+            <field name = "level"/>
+            <field name = "study_center"/>
+            <field name = "major"/>
+            <field name = "beschool"/>
+            <field name = "inputer_dpt"/>
+            <field name = "entry_date"/>
+        </tree>
+      </field>
+    </record>
+
+    <!--高级搜索-->
+    <record id="view_jm_tju_student_search" model="ir.ui.view">
+        <field name="name">天大学生搜索</field>
+        <field name="model">jm.tju.student</field>
+        <field name="arch" type="xml">
+            <search string="students">
+                <field name = "name_show"/>
+                <field name = "batch"/>
+                <field name = "student"/>
+                <field name = "inputer_dpt"/>
+            </search>
+        </field>
+    </record>
+
+    <!--pivot视图-->
+    <record id="view_tju_student_pivot" model="ir.ui.view">
+        <field name="name">天大学生统计试图</field>
+        <field name="model">jm.tju.student</field>
+        <field name="arch" type="xml">
+            <pivot string="学生信息">
+                <field name="batch" type="col"/>
+                <field name="beschool" type="col"/>
+                <field name="inputer_dpt" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!--action-->
+    <record model="ir.actions.act_window" id="action_jm_tju_student">
+      <field name="name">天大学生信息查看</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.tju.student</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,pivot,form</field>
+      <field name="search_view_id" ref="view_jm_tju_student_search"/>
+      <field name="help" type = "xml">
+        <p class = "oe.view.nocontent_create">
+          请新建学生报名信息
+        </p>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_jm_tju_student_count">
+      <field name="name">天大学生信息统计</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.tju.student</field>
+      <field name="view_mode">pivot</field>
+      <field name="search_view_id" ref="view_jm_tju_student_search"/>
+    </record>
+
+    <record id="action_tju_student_tree" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_tree_jm_tju_student"/>
+        <field name="act_window_id" ref="action_jm_tju_student"/>
+    </record>
+
+    <record id="action_tju_student_form" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_form_jm_tju_student"/>
+        <field name="act_window_id" ref="action_jm_tju_student"/>
+    </record>
+
+    <!--客户所招学生链接-->
+    <!--<record id="act_jm_tju_student" model="ir.actions.act_window">-->
+        <!--<field name="name">客户所招学生</field>-->
+        <!--<field name="res_model">jm.tju.student</field>-->
+        <!--<field name="view_type">form</field>-->
+        <!--<field name="view_mode">tree,form</field>-->
+        <!--<field name="domain">[('inputer_dpt', '=', active_id)]</field>-->
+
+        <!--<field name="help" type="html">-->
+          <!--<p class="oe_view_nocontent_create">-->
+          <!--</p>-->
+        <!--</field>-->
+    <!--</record>-->
+
+    <!--<record id="custom_tju_student_form" model="ir.actions.act_window.view">-->
+        <!--<field eval="2" name="sequence"/>-->
+        <!--<field name="view_mode">form</field>-->
+        <!--<field name="view_id" ref="view_form_jm_tju_student"/>-->
+        <!--<field name="act_window_id" ref="act_jm_tju_student"/>-->
+    <!--</record>-->
+
+    <!--<record id="custom_tju_student_tree" model="ir.actions.act_window.view">-->
+        <!--<field eval="1" name="sequence"/>-->
+        <!--<field name="view_mode">tree</field>-->
+        <!--<field name="view_id" ref="view_tree_jm_tju_student"/>-->
+        <!--<field name="act_window_id" ref="act_jm_tju_student"/>-->
+    <!--</record>-->
+
+    <!--<record model="ir.ui.view" id="tju_custom_plus_form_view">-->
+      <!--<field name="name">客户所招学生按钮添加</field>-->
+      <!--<field name="model">jm.custom</field>-->
+      <!--<field name="inherit_id" ref="CustomManage.view_from_jm_custom"/>-->
+      <!--<field name="arch" type="xml">-->
+            <!--<div name="button_box" position="inside">-->
+                <!--<button class="oe_stat_button" type="action" name="%(DistanceEdu.act_jm_tju_student)d"-->
+                  <!--icon="fa-usd">-->
+                  <!--<field string="天大学生" name="count" widget="statinfo"/>-->
+                <!--</button>-->
+            <!--</div>-->
+      <!--</field>-->
+    <!--</record>-->
+
+
+
+    <!--更改信息按钮-->
+    <record id="jm_tju_student_change_inputer" model="ir.ui.view">
+        <field name="name">天大学生更改归属</field>
+        <field name="model">jm.tju.student.change</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                  <group>
+                    <field name="inputer_dpt" required="1"/>
+                    <field name="inputer"/>
+                  </group>
+                  <group>
+
+                  </group>
+                </group>
+                <footer>
+                    <button string="更新信息" name="change_inputer" type="object" class="btn-primary"/>
+                    <!--<button string="补全计划" name="comp" type="object" class="btn-primary"/>-->
+                    <button string="取消" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <act_window id="tju_change_inputer_action"
+            name="完善归属"
+            src_model="jm.tju.student"
+            res_model="jm.tju.student.change"
+            view_type="form" view_mode="form"
+            view_id = "jm_tju_student_change_inputer"
+            key2="client_action_multi" target="new"
+            />
+
+    <!--<act_window id="tju_change_fee_action"
+            name="更改收费"
+            src_model="jm.tju.student"
+            res_model="jm.tju.student.change"
+            view_type="form" view_mode="form"
+            view_id = 'tju_change_fee_view'
+            key2="client_action_multi" target="new"
+            />-->
+    <!--待完善学生-->
+    <record model="ir.ui.view" id="tju_student_no_teacher_form">
+      <field name="name">天大待完善归属学生form视图</field>
+      <field name="model">jm.tju.student</field>
+      <field name="arch" type="xml">
+          <form create="false" delete="false">
+            <header>
+                <button name="change_teacher" string="更改归属" type="object" class="btn-primary"/>
+            </header>
+            <sheet>
+                  <group string="学生信息">
+                    <group>
+                      <field name = "student" required="1"/>
+                      <field name="name_show"/>
+                      <field name="sex_show"/>
+                      <field name="birth_show"/>
+                    </group>
+                    <group>
+                      <field name="nation_show"/>
+                      <field name="native_place_show"/>
+                      <field name="address_show"/>
+                      <field name="phone_show"/>
+                      <field name="wchat_show"/>
+                    </group>
+                  </group>
+
+                  <group string="报名信息">
+                    <group >
+                      <field name = "batch" required = '1' on_change='batch_c(batch)'/>
+                      <field name = "level" required = '1' on_change='level_c(level)'/>
+                      <field name = "study_center" required = '1' on_change='study_center_c(study_center)'/>
+                      <field name = "major" required = '1'/>
+                    </group>
+                    <group string="">
+                      <field name = "entry_date" required = '0'/>
+                      <field name = "inputer" required = '0'/>
+                      <field name = "inputer_dpt" required = '0'/>
+                      <field name = "beschool" required = '0'/>
+                    </group>
+                  </group>
+
+                  <group>
+                    <field name = 'remarks'/>
+                  </group>
+            </sheet>
+          </form>
+      </field>
+    </record>
+
+
+    <!--tree-->
+    <record model="ir.ui.view" id="tju_student_no_teacher_tree">
+      <field name="name">天大待完善归属学生tree视图</field>
+      <field name="model">jm.tju.student</field>
+      <field name="priority">2</field>
+      <field name="arch" type = "xml">
+        <tree create="false" delete="false">
+            <field name = "name_show"/>
+            <field name = "student"/>
+            <field name = "study_center"/>
+            <field name = "batch" />
+            <field name = "level"/>
+            <field name = "major"/>
+            <field name = "beschool"/>
+            <field name = "inputer_dpt"/>
+            <field name = "entry_date"/>
+        </tree>
+      </field>
+    </record>
+
+    <!--高级搜索-->
+    <record id="tju_student_no_teacher_search" model="ir.ui.view">
+        <field name="name">天大待完善归属学生搜索</field>
+        <field name="model">jm.tju.student</field>
+        <field name="arch" type="xml">
+            <search string="students">
+                <field name = "name_show"/>
+                <field name = "student"/>
+                <field name = "inputer_dpt"/>
+                <field name = "beschool"/>
+            </search>
+        </field>
+    </record>
+
+    <!--action-->
+    <record id="jm_tju_student_not" model="ir.actions.act_window">
+        <field name="name">天大学生归属完善</field>
+        <field name="res_model">jm.tju.student</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('inputer_dpt', '=', None)]</field>
+        <field name="search_view_id" ref="tju_student_no_teacher_search"/>
+        <field name="help" type="html">
+          <p >
+              暂无未完善学生
+          </p>
+        </field>
+    </record>
+
+    <record id="tju_student_not_form" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="tju_student_no_teacher_form"/>
+        <field name="act_window_id" ref="jm_tju_student_not"/>
+    </record>
+
+    <record id="tju_student_not_tree" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="tju_student_no_teacher_tree"/>
+        <field name="act_window_id" ref="jm_tju_student_not"/>
+    </record>
+
+    <!--单个学生报名-->
+    <record model="ir.ui.view" id="tju_student_single_form">
+      <field name="name">天大单个学生报名form视图</field>
+      <field name="model">jm.tju.student</field>
+      <field name="arch" type="xml">
+          <form string = "天大学生报名">
+            <sheet>
+                  <group string="学生信息">
+                    <group>
+                      <field name = "student" required="1"/>
+                      <field name="name_show"/>
+                      <field name="sex_show"/>
+                      <field name="birth_show"/>
+                    </group>
+                    <group>
+                      <field name="nation_show"/>
+                      <field name="native_place_show"/>
+                      <field name="address_show"/>
+                      <field name="phone_show"/>
+                      <field name="wchat_show"/>
+                    </group>
+                  </group>
+                  <group string="最高学历">
+                    <group>
+                      <field name="highest_degree"/>
+                      <field name="graduate_time"/>
+                      <field name="graduate_school"/>
+                    </group>
+                    <group>
+                      <field name="graduate_code"/>
+                      <field name="graduate_major"/>
+                      <field name="graduate_cer_code"/>
+                    </group>
+                  </group>
+                  <group string="报名信息">
+                    <group >
+                      <field name = "batch" required = '1' on_change='batch_c(batch)'/>
+                      <field name = "level" required = '1' on_change='level_c(level)'/>
+                      <field name = "study_center" required = '1' on_change='study_center_c(study_center)'/>
+                      <field name = "major" required = '1'/>
+                      <field name = "student_state" required = '0'/>
+                      <field name = "school_state" required = '0'/>
+                      <field name = "reg_time" required = '0'/>
+                      <field name = "reg_code" required = '0'/>
+                      <field name = "entry_date" required = '0'/>
+                      <field name = "study_code" required = '0'/>
+                    </group>
+                    <group string="">
+                      <field name = "zkzh" required = '0'/>
+                      <field name = "school_date" required = '0'/>
+                      <field name = "is_test" required = '0'/>
+                      <field name = "inputer" required = '0'/>
+                      <field name = "inputer_dpt" required = '0'/>
+                      <field name = "beschool" required = '0'/>
+                      <field name = "firstcon" required = '0'/>
+                      <field name = "is_change" required = '0'/>
+                      <field name = "warning" required = '0'/>
+                      <field name = "college_remark" required = '0'/>
+                    </group>
+                  </group>
+                  <group string="收费标准">
+                    <group>
+                      <field name="bm_fee"/>
+                      <field name="tuition"/>
+                      <field name="jc_fee"/>
+                      <field name="ptfw_fee"/>
+                      <field name="tuition2"/>
+                      <field name="jc_fee2"/>
+                      <field name="ptfw_fee2"/>
+                    </group>
+                    <group>
+                      <field name="qcfd_fee"/>
+                      <field name="qcfd_fee2"/>
+                      <field name="lwcx_fee"/>
+                      <field name="lwzd_fee"/>
+                      <field name="dzsx_fee"/>
+                    </group>
+                  </group>
+                  <group>
+                    <group>
+                      <field name="yh_fee"/>
+                    </group>
+                    <group>
+                      <field name="ykj"/>
+                    </group>
+                    <group>
+                      <field name="sum_fee"/>
+                    </group>
+                  </group>
+                  <group>
+                    <field name = 'remarks'/>
+                  </group>
+            </sheet>
+          </form>
+      </field>
+    </record>
+
+    <!--action-->
+    <record model="ir.actions.act_window" id="action_tju_student_single">
+      <field name="name">天大单个学生报名</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.tju.student</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="view_tree_jm_tju_student"/>
+      <field name="help" type = "xml">
+        <p class = "oe.view.nocontent_create">
+          请新建学生报名信息
+        </p>
+      </field>
+    </record>
+
+    <record id="tju_student_form_single" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="tju_student_single_form"/>
+        <field name="act_window_id" ref="action_tju_student_single"/>
+    </record>
+
+    <!--<record model="ir.ui.view" id="tju_student_change_fee">-->
+      <!--<field name="name">天大学生收费修改form试图</field>-->
+      <!--<field name="model">jm.tju.student.change.fee</field>-->
+      <!--<field name="arch" type="xml">-->
+          <!--<form create="false" delete="false" edit="false" class="oe_form_configuration">-->
+            <!--<sheet>-->
+                <!--<field name="student" domain="[]" context="{'form_view_ref':'DistanceEdu.view_form_jm_tju_student'}" options="{'no_create': True}">-->
+                    <!--<tree>-->
+                        <!--<field name="student"/>-->
+                        <!--<field name="name_show"/>-->
+                        <!--<field name="batch"/>-->
+                        <!--<field name="level"/>-->
+                        <!--<field name="study_center"/>-->
+                        <!--<field name="major"/>-->
+                        <!--<field name="beschool"/>-->
+                        <!--<field name="inputer_dpt"/>-->
+                    <!--</tree>-->
+                <!--</field>-->
+                <!--<button name="change_fee" string="更改收费" type="object" class="btn-primary"/>-->
+            <!--</sheet>-->
+
+          <!--</form>-->
+      <!--</field>-->
+    <!--</record>-->
+
+    <!--<record model="ir.actions.act_window" id="action_tju_student_change_fee">-->
+      <!--<field name="name">天大学生收费修改</field>-->
+      <!--<field name="type">ir.actions.act_window</field>-->
+      <!--<field name="res_model">jm.tju.student.change.fee</field>-->
+      <!--<field name="view_mode">form</field>-->
+      <!--<field name="target">inline</field>-->
+    <!--</record>-->
+
+  </data>
+</openerp>

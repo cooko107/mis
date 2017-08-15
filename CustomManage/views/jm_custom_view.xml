@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- explicit list view definition -->
+    <!-- 报名点1 -->
+
+
+    <record model="ir.ui.view" id="view_from_jm_custom">
+      <field name="name">jm.custom.form</field>
+      <field name="model">jm.custom</field>
+      <field name="arch" type="xml">
+          <form string = "客户信息" delete="false">
+            <sheet>
+                  <div class="oe_button_box" name="button_box">
+
+                  </div>
+                  <!--<field name="image" widget='image' class="oe_avatar" options='{"preview_image": "image_medium"}'/>-->
+                  <group string="基本信息">
+                    <group>
+                      <field name = "name" required = '1'/>
+                      <field name = "call" required = '1'/>
+                      <field name = "categories" required = '1'/>
+                      <field name = "phone" required = '0'/>
+                      <field name = "school" required = '1'/>
+                    </group>
+                    <group>
+                      <field name = "code" required = '1'>
+                        <tree string="list" editable="bottom">
+                            <field name="code" required="1" attrs="{'ondelete':'cascade'}"/>
+                        </tree>
+                      </field>
+                    </group>
+                  </group>
+                  <notebook >
+                    <page string="忽略详细">
+
+                    </page>
+                    <page string="查看详细">
+                      <group>
+                        <group>
+                          <field name = "legal_rep" required = '0'/>
+                          <field name = "bus_reg" required = '0'/>
+                          <field name = "reg_address" required = '0'/>
+                          <field name = "open_bank" required = '0' />
+                          <field name = "bank_account" required = '0' />
+                          <field name = "qq" required = '0'/>
+                          <field name = "wchat" required = '0'/>
+                        </group>
+                        <group>
+                          <field name = "email" required = '0'/>
+                          <field name = "province" required = '0' on_change = 'province_change(province)'/>
+                          <field name = "city" required = '0' on_change = 'city_change(city)'/>
+                          <field name = "county" required = '0' />
+                          <field name = "detail_address"/>
+                          <field name = "zipcode" required = '0'/>
+                          <field name = "area" required = '0'/>
+                          <field name = 'remarks'/>
+                        </group>
+                      </group>
+
+                    </page>
+
+                  </notebook>
+                  <field name="contact"/>
+
+            </sheet>
+          </form>
+      </field>
+    </record>
+
+    
+    
+    <!-- actions opening views on models -->
+
+    <record model="ir.ui.view" id="view_tree_jm_custom">
+      <field name="name">jm.custom.tree</field>
+      <field name="model">jm.custom</field>
+      <field name="priority">1</field>
+      <field name="arch" type = "xml">
+        <tree string = "" delete="false">
+          <field name = "call"/>
+          <field name = "code"/>
+          <field name = "categories"/>
+          <field name = "contact"/>
+          <field name = "school"/>
+        </tree>
+      </field>
+    </record>
+
+    
+    <record model="ir.actions.act_window" id="action_jm_custom">
+      <field name="name">客户信息管理</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.custom</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type = "xml">
+        <p class = "oe.view.nocontent_create">
+          请新建客户信息
+        </p>
+      </field>
+    </record>
+
+    <record id="view_jm_custom_search" model="ir.ui.view">
+        <field name="name">custom.search</field>
+        <field name="model">jm.custom</field>
+        <field name="arch" type="xml">
+            <search string="搜素">
+                <field name = "code" filter_domain="[('code.code', 'ilike', self)]"/>
+                <field name = "name"/>
+                <field name = "call"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_jm_delete_custom" model="ir.actions.server">
+      <field name="name">删除客户</field>
+      <field name="model_id" ref="model_jm_custom"/>
+      <field name="code">
+        if context.get('active_ids'):
+          self.delete_custom(cr, uid, context['active_ids'],context=None)
+      </field>
+      <field name="tag">reload</field>
+      <field name="condition">True</field>
+    </record>
+
+    <record id="jm_custom_delete_key" model="ir.values">
+      <field eval="'client_action_multi'" name="key2"/>
+      <field eval="'jm.custom'" name="model"/>
+      <field name="name">删除客户</field>
+      <field eval="'ir.actions.server,%d'%action_jm_delete_custom" name="value"/>
+    </record>
+
+    <!-- Top menu item -->
+    <menuitem name="组织" id="jmedu_custom_menu1" sequence="3"/>
+    <menuitem name="组织管理" id="jmedu_custom_menu2_1" parent="jmedu_custom_menu1"/>
+    <menuitem name="分校信息" id="jmedu_custom_menu3_3" parent="jmedu_custom_menu2_1" sequence="1" action="action_jm_de_school"/>
+    <menuitem name="客户信息" id="jmedu_custom_menu3_1" parent="jmedu_custom_menu2_1" sequence="3" action="action_jm_custom"/>
+    <menuitem name="联系人信息" id="jmedu_custom_menu3_2" parent="jmedu_custom_menu2_1" sequence="2" action="action_jm_contact"/>
+    <menuitem name="个人信息" id="jmedu_custom_menu3_4" parent="jmedu_custom_menu2_1" sequence="4" action="action_jm_personal"/>
+    <!--
+    <record model="ir.module.category" id="module_category_custom_management">
+        <field name="name">Customs</field>
+        <field name="description">Helps you handle your quotations, sale orders and invoicing.</field>
+        <field name="sequence">1</field>
+    </record>
+    -->
+  </data>
+</openerp>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- explicit list view definition -->
+
+     <record model="ir.ui.view" id="view_form_jm_zzu_student">
+      <field name="name">郑大学生信息form视图</field>
+      <field name="model">jm.zzu.student</field>
+      <field name="arch" type="xml">
+          <form create="false">
+            <sheet>
+                  <group string="学生信息">
+                    <group>
+                      <field name="student" required="1"/>
+                      <field name="name_show"/>
+                      <field name="sex_show"/>
+                      <field name="birth_show"/>
+
+                    </group>
+                    <group>
+                      <field name="nation_show"/>
+                      <field name="address_show"/>
+                      <field name="phone_show"/>
+                    </group>
+                  </group>
+
+                  <group string="报名信息">
+                    <group >
+                      <field name = "batch" required = '1' on_change='batch_c(batch)'/>
+                      <field name = "level" required = '1' on_change='level_c(level)'/>
+                      <field name = "study_center" required = '1' on_change='study_center_c(study_center)'/>
+                      <field name = "major" required = '1'/>
+                      <field name = "entry_date" required = '0'/>
+                      <field name = "study_code" required = '0'/>
+                    </group>
+                    <group string="">
+                      <field name = "add_score" required = '0'/>
+                      <field name = "test_code" required = '0'/>
+                      <field name = "test_pwd" required = '0'/>
+                      <field name = "inputer" required = '0'/>
+                      <field name = "inputer_dpt" required = '1'/>
+                      <field name = "beschool" required = '0'/>
+                      <field name = "firstcon" required = '0'/>
+
+                    </group>
+                  </group>
+                  <notebook>
+
+                  </notebook>
+
+            </sheet>
+          </form>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="view_tree_jm_zzu_student">
+      <field name="name">郑大学生信息tree视图</field>
+      <field name="model">jm.zzu.student</field>
+      <field name="priority">1</field>
+      <field name="arch" type = "xml">
+        <tree create="false">
+            <field name = "student"/>
+            <field name = "name_show"/>
+            <field name = "study_center"/>
+            <field name = "batch" />
+            <field name = "level"/>
+            <field name = "major"/>
+            <field name = "beschool"/>
+            <field name = "inputer_dpt"/>
+            <field name = "entry_date"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <record id="view_jm_zzu_student_search" model="ir.ui.view">
+        <field name="name">郑大学生信息搜索</field>
+        <field name="model">jm.zzu.student</field>
+        <field name="arch" type="xml">
+            <search string="students">
+                <field name = "name_show"/>
+                <field name = "student"/>
+                <field name = "inputer_dpt"/>
+                <field name = "batch"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_zzu_student_pivot" model="ir.ui.view">
+        <field name="name">郑大学生信息统计视图</field>
+        <field name="model">jm.zzu.student</field>
+        <field name="arch" type="xml">
+            <pivot string="student detail">
+              <field name="batch" type="col"/>
+              <field name="beschool" type="col"/>
+              <field name="inputer_dpt" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_jm_zzu_student">
+      <field name="name">郑大学生信息</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.zzu.student</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_jm_zzu_student_search"/>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_jm_zzu_student_count">
+      <field name="name">郑大学生信息统计</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.zzu.student</field>
+      <field name="view_mode">pivot</field>
+    </record>
+
+    <record id="action_zzu_student_tree" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_tree_jm_zzu_student"/>
+        <field name="act_window_id" ref="action_jm_zzu_student"/>
+    </record>
+
+    <record id="action_zzu_student_form" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_form_jm_zzu_student"/>
+        <field name="act_window_id" ref="action_jm_zzu_student"/>
+    </record>
+
+
+    <!--<record id="act_jm_zzu_student" model="ir.actions.act_window">-->
+        <!--<field name="name">客户所招学生</field>-->
+        <!--<field name="res_model">jm.zzu.student</field>-->
+        <!--<field name="view_type">form</field>-->
+        <!--<field name="view_mode">tree,form</field>-->
+        <!--<field name="domain">[('inputer_dpt', '=', active_id)]</field>-->
+        <!--<field name="help" type="html">-->
+          <!--<p class="oe_view_nocontent_create">-->
+
+          <!--</p>-->
+        <!--</field>-->
+    <!--</record>-->
+
+    <!--<record model="ir.ui.view" id="zzu_custom_plus_form_view">-->
+      <!--<field name="name">客户所招学生</field>-->
+      <!--<field name="model">jm.custom</field>-->
+      <!--<field name="inherit_id" ref="CustomManage.view_from_jm_custom"/>-->
+      <!--<field name="arch" type="xml">-->
+            <!--<div name="button_box" position="inside">-->
+                <!--<button class="oe_stat_button" type="action" name="%(DistanceEdu.act_jm_zzu_student)d"-->
+                  <!--icon="fa-usd">-->
+                  <!--<field string="郑大学生" name="zzu_count" widget="statinfo"/>-->
+                <!--</button>-->
+            <!--</div>-->
+      <!--</field>-->
+    <!--</record>-->
+
+
+    <record id="zzu_student_change_inputer" model="ir.ui.view">
+        <field name="name">郑大学生更改归属</field>
+        <field name="model">jm.zzu.student.change</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                  <field name="inputer_dpt" required="1"/>
+                  <field name="inputer"/>
+                </group>
+                <footer>
+                    <button string="更新信息" name="change_inputer" type="object" class="btn-primary"/>
+                    <!--<button string="补全计划" name="comp" type="object" class="btn-primary"/>-->
+                    <button string="取消" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <act_window id="zzu_change_inputer_action"
+            name="完善归属"
+            src_model="jm.zzu.student"
+            res_model="jm.zzu.student.change"
+            view_type="form" view_mode="form"
+            view_id = 'zzu_student_change_inputer'
+            key2="client_action_multi" target="new"
+            />
+  </data>
+</openerp>

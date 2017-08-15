@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="workflow" id="tju_student_charge_workflow">
+            <field name="name">天大收费审核</field>
+            <field name="osv">jm.tju.student</field>
+            <field name="on_create">True</field>
+        </record>
+
+        <record model="workflow.activity" id="tju_student_charge_one">
+            <field name="wkf_id" ref="tju_student_charge_workflow"/>
+            <field name="name">天大学生收费审核1</field>
+            <field name="kind">dummy</field>
+            <field name="flow_start">True</field>
+        </record>
+
+        <record model="workflow.activity" id="tju_student_charge_two">
+            <field name="wkf_id" ref="tju_student_charge_workflow"/>
+            <field name="name">天大学生收费审核2</field>
+            <field name="kind">function</field>
+            <field name="action">to_confirm()</field>
+        </record>
+
+
+        <record model="workflow.activity" id="tju_student_charge_three">
+            <field name="wkf_id" ref="tju_student_charge_workflow"/>
+            <field name="name">天大学生收费审核3</field>
+            <field name="kind">function</field>
+            <field name="action">approve()</field>
+        </record>
+
+        <record model="workflow.activity" id="tju_student_charge_four">
+            <field name="wkf_id" ref="tju_student_charge_workflow"/>
+            <field name="name">天大学生收费审核4</field>
+            <field name="kind">function</field>
+            <field name="action">not_approve()</field>
+        </record>
+
+
+        <record model="workflow.transition" id="tju_student_charge_transition_one">
+            <field name="act_from" ref="tju_student_charge_one"/>
+            <field name="act_to" ref="tju_student_charge_two"/>
+            <field name="condition">state == 'init'</field>
+            <field name="signal">workflow_to_confirm</field>
+        </record>
+
+
+        <record model="workflow.transition" id="tju_student_charge_transition_two">
+            <field name="act_from" ref="tju_student_charge_two"/>
+            <field name="act_to" ref="tju_student_charge_three"/>
+            <field name="condition">state == 'confirm'</field>
+            <field name="signal">workflow_approve</field>
+        </record>
+
+        <record model="workflow.transition" id="tju_student_charge_transition_three">
+            <field name="act_from" ref="tju_student_charge_two"/>
+            <field name="act_to" ref="tju_student_charge_four"/>
+            <field name="condition">state == 'confirm'</field>
+            <field name="signal">workflow_not_approve</field>
+        </record>
+
+        <record model="workflow.transition" id="tju_student_charge_transition_four">
+            <field name="act_from" ref="tju_student_charge_four"/>
+            <field name="act_to" ref="tju_student_charge_two"/>
+            <field name="condition">state == 'not_approve'</field>
+            <field name="signal">workflow_to_confirm</field>
+        </record>
+
+
+        <record model="workflow.transition" id="tju_student_charge_transition_five">
+            <field name="act_from" ref="tju_student_charge_three"/>
+            <field name="act_to" ref="tju_student_charge_two"/>
+            <field name="condition">state == 'init'</field>
+            <field name="signal">workflow_to_confirm</field>
+        </record>
+
+
+
+
+
+        <record model="workflow" id="nku_student_charge_workflow">
+            <field name="name">南开收费审核</field>
+            <field name="osv">jm.nku.student</field>
+            <field name="on_create">True</field>
+        </record>
+
+        <record model="workflow.activity" id="nku_student_charge_one">
+            <field name="wkf_id" ref="nku_student_charge_workflow"/>
+            <field name="name">南开学生收费审核1</field>
+            <field name="kind">dummy</field>
+            <field name="flow_start">True</field>
+        </record>
+
+        <record model="workflow.activity" id="nku_student_charge_two">
+            <field name="wkf_id" ref="nku_student_charge_workflow"/>
+            <field name="name">南开学生收费审核2</field>
+            <field name="kind">function</field>
+            <field name="action">to_confirm()</field>
+        </record>
+
+
+        <record model="workflow.activity" id="nku_student_charge_three">
+            <field name="wkf_id" ref="nku_student_charge_workflow"/>
+            <field name="name">南开学生收费审核3</field>
+            <field name="kind">function</field>
+            <field name="action">approve()</field>
+        </record>
+
+        <record model="workflow.activity" id="nku_student_charge_four">
+            <field name="wkf_id" ref="nku_student_charge_workflow"/>
+            <field name="name">南开学生收费审核4</field>
+            <field name="kind">function</field>
+            <field name="action">not_approve()</field>
+        </record>
+
+
+        <record model="workflow.transition" id="nku_student_charge_transition_one">
+            <field name="act_from" ref="nku_student_charge_one"/>
+            <field name="act_to" ref="nku_student_charge_two"/>
+            <field name="condition">state == 'init'</field>
+            <field name="signal">workflow_to_confirm</field>
+        </record>
+
+
+        <record model="workflow.transition" id="nku_student_charge_transition_two">
+            <field name="act_from" ref="nku_student_charge_two"/>
+            <field name="act_to" ref="nku_student_charge_three"/>
+            <field name="condition">state == 'confirm'</field>
+            <field name="signal">workflow_approve</field>
+        </record>
+
+        <record model="workflow.transition" id="nku_student_charge_transition_three">
+            <field name="act_from" ref="nku_student_charge_two"/>
+            <field name="act_to" ref="nku_student_charge_four"/>
+            <field name="condition">state == 'confirm'</field>
+            <field name="signal">workflow_not_approve</field>
+        </record>
+
+        <record model="workflow.transition" id="nku_student_charge_transition_four">
+            <field name="act_from" ref="nku_student_charge_four"/>
+            <field name="act_to" ref="nku_student_charge_two"/>
+            <field name="condition">state == 'not_approve'</field>
+            <field name="signal">workflow_to_confirm</field>
+        </record>
+
+
+        <record model="workflow.transition" id="nku_student_charge_transition_five">
+            <field name="act_from" ref="nku_student_charge_three"/>
+            <field name="act_to" ref="nku_student_charge_two"/>
+            <field name="condition">state == 'init'</field>
+            <field name="signal">workflow_to_confirm</field>
+        </record>
+
+
+
+
+        <record model="workflow" id="syu_student_charge_workflow">
+            <field name="name">石大收费审核</field>
+            <field name="osv">jm.syu.student</field>
+            <field name="on_create">True</field>
+        </record>
+
+        <record model="workflow.activity" id="syu_student_charge_one">
+            <field name="wkf_id" ref="syu_student_charge_workflow"/>
+            <field name="name">石大学生收费审核1</field>
+            <field name="kind">dummy</field>
+            <field name="flow_start">True</field>
+        </record>
+
+        <record model="workflow.activity" id="syu_student_charge_two">
+            <field name="wkf_id" ref="syu_student_charge_workflow"/>
+            <field name="name">石大学生收费审核2</field>
+            <field name="kind">function</field>
+            <field name="action">to_confirm()</field>
+        </record>
+
+
+        <record model="workflow.activity" id="syu_student_charge_three">
+            <field name="wkf_id" ref="syu_student_charge_workflow"/>
+            <field name="name">石大学生收费审核3</field>
+            <field name="kind">function</field>
+            <field name="action">approve()</field>
+        </record>
+
+        <record model="workflow.activity" id="syu_student_charge_four">
+            <field name="wkf_id" ref="syu_student_charge_workflow"/>
+            <field name="name">石大学生收费审核4</field>
+            <field name="kind">function</field>
+            <field name="action">not_approve()</field>
+        </record>
+
+
+        <record model="workflow.transition" id="syu_student_charge_transition_one">
+            <field name="act_from" ref="syu_student_charge_one"/>
+            <field name="act_to" ref="syu_student_charge_two"/>
+            <field name="condition">state == 'init'</field>
+            <field name="signal">workflow_to_confirm</field>
+        </record>
+
+
+        <record model="workflow.transition" id="syu_student_charge_transition_two">
+            <field name="act_from" ref="syu_student_charge_two"/>
+            <field name="act_to" ref="syu_student_charge_three"/>
+            <field name="condition">state == 'confirm'</field>
+            <field name="signal">workflow_approve</field>
+        </record>
+
+        <record model="workflow.transition" id="syu_student_charge_transition_three">
+            <field name="act_from" ref="syu_student_charge_two"/>
+            <field name="act_to" ref="syu_student_charge_four"/>
+            <field name="condition">state == 'confirm'</field>
+            <field name="signal">workflow_not_approve</field>
+        </record>
+
+        <record model="workflow.transition" id="syu_student_charge_transition_four">
+            <field name="act_from" ref="syu_student_charge_four"/>
+            <field name="act_to" ref="syu_student_charge_two"/>
+            <field name="condition">state == 'not_approve'</field>
+            <field name="signal">workflow_to_confirm</field>
+        </record>
+
+
+        <record model="workflow.transition" id="syu_student_charge_transition_five">
+            <field name="act_from" ref="syu_student_charge_three"/>
+            <field name="act_to" ref="syu_student_charge_two"/>
+            <field name="condition">state == 'init'</field>
+            <field name="signal">workflow_to_confirm</field>
+        </record>
+
+
+
+
+        <record model="workflow" id="zzu_student_charge_workflow">
+            <field name="name">郑大收费审核</field>
+            <field name="osv">jm.zzu.student</field>
+            <field name="on_create">True</field>
+        </record>
+
+        <record model="workflow.activity" id="zzu_student_charge_one">
+            <field name="wkf_id" ref="zzu_student_charge_workflow"/>
+            <field name="name">郑大学生收费审核1</field>
+            <field name="kind">dummy</field>
+            <field name="flow_start">True</field>
+        </record>
+
+        <record model="workflow.activity" id="zzu_student_charge_two">
+            <field name="wkf_id" ref="zzu_student_charge_workflow"/>
+            <field name="name">郑大学生收费审核2</field>
+            <field name="kind">function</field>
+            <field name="action">to_confirm()</field>
+        </record>
+
+
+        <record model="workflow.activity" id="zzu_student_charge_three">
+            <field name="wkf_id" ref="zzu_student_charge_workflow"/>
+            <field name="name">郑大学生收费审核3</field>
+            <field name="kind">function</field>
+            <field name="action">approve()</field>
+        </record>
+
+        <record model="workflow.activity" id="zzu_student_charge_four">
+            <field name="wkf_id" ref="zzu_student_charge_workflow"/>
+            <field name="name">郑大学生收费审核4</field>
+            <field name="kind">function</field>
+            <field name="action">not_approve()</field>
+        </record>
+
+
+        <record model="workflow.transition" id="zzu_student_charge_transition_one">
+            <field name="act_from" ref="zzu_student_charge_one"/>
+            <field name="act_to" ref="zzu_student_charge_two"/>
+            <field name="condition">state == 'init'</field>
+            <field name="signal">workflow_to_confirm</field>
+        </record>
+
+
+        <record model="workflow.transition" id="zzu_student_charge_transition_two">
+            <field name="act_from" ref="zzu_student_charge_two"/>
+            <field name="act_to" ref="zzu_student_charge_three"/>
+            <field name="condition">state == 'confirm'</field>
+            <field name="signal">workflow_approve</field>
+        </record>
+
+        <record model="workflow.transition" id="zzu_student_charge_transition_three">
+            <field name="act_from" ref="zzu_student_charge_two"/>
+            <field name="act_to" ref="zzu_student_charge_four"/>
+            <field name="condition">state == 'confirm'</field>
+            <field name="signal">workflow_not_approve</field>
+        </record>
+
+        <record model="workflow.transition" id="zzu_student_charge_transition_four">
+            <field name="act_from" ref="zzu_student_charge_four"/>
+            <field name="act_to" ref="zzu_student_charge_two"/>
+            <field name="condition">state == 'not_approve'</field>
+            <field name="signal">workflow_to_confirm</field>
+        </record>
+
+
+        <record model="workflow.transition" id="zzu_student_charge_transition_five">
+            <field name="act_from" ref="zzu_student_charge_three"/>
+            <field name="act_to" ref="zzu_student_charge_two"/>
+            <field name="condition">state == 'init'</field>
+            <field name="signal">workflow_to_confirm</field>
+        </record>
+
+
+
+
+        <!--<record model="workflow" id="charge_workflow">-->
+            <!--<field name="name">charge_workflow</field>-->
+            <!--<field name="osv">jm.student.charge</field>-->
+            <!--<field name="on_create">True</field>-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash; workflow.activity 用来指定要调用的model里的方法，一般用来更改state状态&ndash;&gt;-->
+        <!--<record model="workflow.activity" id="activity_one">-->
+            <!--&lt;!&ndash; wkf_id 这个activity对应于哪个workflow,这里对应于上面声明的workflow&ndash;&gt;-->
+            <!--<field name="wkf_id" ref="charge_workflow"/>-->
+            <!--<field name="name">charge_workflow_activity_one</field>-->
+            <!--&lt;!&ndash; dummy 类型用来指定这个activity 是workflow的开始还是结束&ndash;&gt;-->
+            <!--<field name="kind">dummy</field>-->
+            <!--&lt;!&ndash; 开始是flow_start  结束是flow_end&ndash;&gt;-->
+            <!--<field name="flow_start">True</field>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.activity" id="activity_two">-->
+            <!--<field name="wkf_id" ref="charge_workflow"/>-->
+            <!--<field name="name">charge_workflow_activity_five</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">to_approve()</field>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.activity" id="activity_three">-->
+            <!--<field name="wkf_id" ref="charge_workflow"/>-->
+            <!--<field name="name">charge_workflow_activity_six</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">back_init()</field>-->
+        <!--</record>-->
+
+
+        <!--<record model="workflow.activity" id="activity_four">-->
+            <!--<field name="wkf_id" ref="charge_workflow"/>-->
+            <!--<field name="name">charge_workflow_activity_three</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">to_end()</field>-->
+        <!--</record>-->
+
+
+        <!--<record model="workflow.activity" id="activity_five">-->
+            <!--<field name="wkf_id" ref="charge_workflow"/>-->
+            <!--<field name="name">charge_workflow_activity_four</field>-->
+            <!--<field name="kind">dummy</field>-->
+            <!--<field name="flow_end">True</field>-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash; 相当于一个转换器，用来接受button传来的信号，调用相关的activity&ndash;&gt;-->
+        <!--<record model="workflow.transition" id="transition_one">-->
+            <!--<field name="act_from" ref="activity_one"/>-->
+            <!--<field name="act_to" ref="activity_two"/>-->
+            <!--<field name="condition">state == 'init'</field>-->
+            <!--<field name="signal">workflow_start</field>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.transition" id="transition_two">-->
+            <!--<field name="act_from" ref="activity_three"/>-->
+            <!--<field name="act_to" ref="activity_two"/>-->
+            <!--<field name="condition">state == 'init'</field>-->
+            <!--<field name="signal">workflow_start</field>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.transition" id="transition_three">-->
+            <!--<field name="act_from" ref="activity_two"/>-->
+            <!--<field name="act_to" ref="activity_four"/>-->
+            <!--<field name="condition">state == 'approve'</field>-->
+            <!--<field name="signal">workflow_approve</field>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.transition" id="transition_four">-->
+            <!--<field name="act_from" ref="activity_two"/>-->
+            <!--<field name="act_to" ref="activity_three"/>-->
+            <!--<field name="condition">state == 'approve'</field>-->
+            <!--<field name="signal">workflow_not_approve</field>-->
+        <!--</record>-->
+
+
+        <!--<record model="workflow.transition" id="transition_five">-->
+            <!--<field name="act_from" ref="activity_four"/>-->
+            <!--<field name="act_to" ref="activity_two"/>-->
+            <!--<field name="condition">state == 'complete'</field>-->
+            <!--<field name="signal">workflow_end_back</field>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.transition" id="transition_six">-->
+            <!--<field name="act_from" ref="activity_four"/>-->
+            <!--<field name="act_to" ref="activity_two"/>-->
+            <!--<field name="condition">state == 'complete'</field>-->
+            <!--<field name="signal">workflow_up_yes_back</field>-->
+        <!--</record>-->
+
+
+
+
+        <!--<record model="workflow" id="receipt_deactivate_workflow">-->
+            <!--<field name="name">receipt_deactivate_workflow</field>-->
+            <!--<field name="osv">jm.finance.receipt.deactivate</field>-->
+            <!--<field name="on_create">True</field>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.activity" id="receipt_deactivate_start">-->
+            <!--<field name="wkf_id" ref="receipt_deactivate_workflow"/>-->
+            <!--<field name="name">receipt_deactivate_start</field>-->
+            <!--<field name="kind">dummy</field>-->
+            <!--<field name="flow_start">True</field>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.activity" id="receipt_deactivate_to_confirm">-->
+            <!--<field name="wkf_id" ref="receipt_deactivate_workflow"/>-->
+            <!--<field name="name">receipt_deactivate_to_confirm</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">to_confirm()</field>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.activity" id="receipt_deactivate_to_complete">-->
+            <!--<field name="wkf_id" ref="receipt_deactivate_workflow"/>-->
+            <!--<field name="name">receipt_deactivate_to_complete</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">to_complete()</field>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.activity" id="receipt_deactivate_back_init">-->
+            <!--<field name="wkf_id" ref="receipt_deactivate_workflow"/>-->
+            <!--<field name="name">receipt_deactivate_back_init</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">back_init()</field>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.transition" id="receipt_deactivate_to_confirm_act">-->
+            <!--<field name="act_from" ref="receipt_deactivate_start"/>-->
+            <!--<field name="act_to" ref="receipt_deactivate_to_confirm"/>-->
+            <!--<field name="condition">state == 'init'</field>-->
+            <!--<field name="signal">receipt_deactivate_to_confirm</field>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.transition" id="receipt_deactivate_to_confirm_act2">-->
+            <!--<field name="act_from" ref="receipt_deactivate_back_init"/>-->
+            <!--<field name="act_to" ref="receipt_deactivate_to_confirm"/>-->
+            <!--<field name="condition">state == 'init'</field>-->
+            <!--<field name="signal">receipt_deactivate_to_confirm</field>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.transition" id="receipt_deactivate_to_complete_act">-->
+            <!--<field name="act_from" ref="receipt_deactivate_to_confirm"/>-->
+            <!--<field name="act_to" ref="receipt_deactivate_to_complete"/>-->
+            <!--<field name="condition">state == 'confirm'</field>-->
+            <!--<field name="signal">receipt_deactivate_to_complete</field>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.transition" id="receipt_deactivate_back_init_act">-->
+            <!--<field name="act_from" ref="receipt_deactivate_to_confirm"/>-->
+            <!--<field name="act_to" ref="receipt_deactivate_back_init"/>-->
+            <!--<field name="condition">state == 'confirm'</field>-->
+            <!--<field name="signal">receipt_deactivate_back_init</field>-->
+        <!--</record>-->
+
+    </data>
+</openerp>

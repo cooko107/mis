@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- explicit list view definition -->
+    <!-- 报名点1 -->
+    <record model="ir.ui.view" id="view_form_jm_syu_student">
+      <field name="name">石大学生信息查看form视图</field>
+      <field name="model">jm.syu.student</field>
+      <field name="arch" type="xml">
+          <form create="false">
+            <sheet>
+                  <group string="学生信息">
+                    <group>
+                      <field name = "student" required="1"/>
+                      <field name="name_show"/>
+                      <field name="sex_show"/>
+                      <field name="birth_show"/>
+                    </group>
+                    <group>
+                      <field name="nation_show"/>
+                      <field name="native_place_show"/>
+                      <field name="address_show"/>
+                      <field name="phone_show"/>
+                      <field name="wchat_show"/>
+                    </group>
+                  </group>
+                  <group string="学前信息">
+                    <group>
+                      <field name = "before_school" required = '0'/>
+                      <field name = "bs_code"/>
+
+                    </group>
+                    <group>
+                      <field name = "bgy" required = '0'/>
+                      <field name = "bg_code" required = '0'/>
+                    </group>
+                  </group>
+                  <group string="报名信息">
+                    <group>
+                      <field name = "batch" required = '1' on_change='batch_c(batch)'/>
+                      <field name = "level" required = '1' on_change='level_c(level)'/>
+                      <field name = "study_center" required = '1' on_change='study_center_c(study_center)'/>
+                      <field name = "major" required = '1'/>
+                      <field name = "study_no" required = '0'/>
+                      <field name = "student_source" required = '0'/>
+                      <field name = "is_test" required = '0'/>
+                      <field name = "test_num" required = '0'/>
+                      <field name = "inputer" required = '0'/>
+                      <field name = "inputer_dpt" required = '0'/>
+                      <field name = "beschool" required = '0'/>
+                    </group>
+                    <group string="">
+                      <field name = "firstcon" required = '0'/>
+                      <field name = "subject1" required = '0'/>
+                      <field name = "subject2" required = '0'/>
+                      <field name = "subject3" required = '0'/>
+                      <field name = "add_points" required = '0'/>
+                      <field name = "sum_points" required = '0'/>
+                      <field name = "com_points" required = '0'/>
+                      <field name = "study_state" required = '0'/>
+                      <field name = "sign_date" required = '0'/>
+                      <field name = "recruit_date" required = '0'/>
+
+                    </group>
+                  </group>
+                  <notebook>
+
+                  </notebook>
+            </sheet>
+          </form>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.ui.view" id="view_tree_jm_syu_student">
+      <field name="name">石大学生信息查看tree视图</field>
+      <field name="model">jm.syu.student</field>
+      <field name="priority">1</field>
+      <field name="arch" type = "xml">
+        <tree create="false">
+          <field name = "student"/>
+          <field name = "name_show"/>
+          <field name = "batch"/>
+          <field name = "level"/>
+          <field name = "study_center"/>
+          <field name = "major"/>
+          <field name = "beschool"/>
+          <field name = "inputer_dpt"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_jm_syu_student_search" model="ir.ui.view">
+        <field name="name">石大学生信息搜索</field>
+        <field name="model">jm.syu.student</field>
+        <field name="arch" type="xml">
+            <search string="students">
+                <field name = "name_show"/>
+                <field name = "student"/>
+                <field name = "inputer_dpt"/>
+                <field name = "batch"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_syu_student_pivot" model="ir.ui.view">
+        <field name="name">石大学生信息查看统计视图</field>
+        <field name="model">jm.syu.student</field>
+        <field name="arch" type="xml">
+            <pivot string="学生详细">
+              <field name="batch" type="col"/>
+              <field name="beschool" type="col"/>
+              <field name="inputer_dpt" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_jm_syu_student">
+      <field name="name">石大学生信息查看</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.syu.student</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_jm_syu_student_search"/>
+    </record>
+      
+    <record model="ir.actions.act_window" id="action_jm_syu_student_count">
+      <field name="name">石大学生信息统计</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.syu.student</field>
+      <field name="view_mode">pivot</field>
+    </record>
+
+    <record id="action_syu_student_tree" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_tree_jm_syu_student"/>
+        <field name="act_window_id" ref="action_jm_syu_student"/>
+    </record>
+
+    <record id="action_syu_student_form" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_form_jm_syu_student"/>
+        <field name="act_window_id" ref="action_jm_syu_student"/>
+    </record>  
+
+    <!--<record id="act_jm_syu_student" model="ir.actions.act_window">-->
+        <!--<field name="name">客户所招学生</field>-->
+        <!--<field name="res_model">jm.syu.student</field>-->
+        <!--<field name="view_type">form</field>-->
+        <!--<field name="view_mode">tree,form</field>-->
+        <!--<field name="domain">[('inputer_dpt', '=', active_id)]</field>-->
+
+        <!--<field name="help" type="html">-->
+          <!--<p class="oe_view_nocontent_create">-->
+          <!--</p>-->
+        <!--</field>-->
+    <!--</record>-->
+
+    <!--<record id="custom_syu_student_form" model="ir.actions.act_window.view">-->
+        <!--<field eval="2" name="sequence"/>-->
+        <!--<field name="view_mode">form</field>-->
+        <!--<field name="view_id" ref="view_form_jm_syu_student"/>-->
+        <!--<field name="act_window_id" ref="act_jm_syu_student"/>-->
+    <!--</record>-->
+
+    <!--<record id="custom_syu_student_tree" model="ir.actions.act_window.view">-->
+        <!--<field eval="1" name="sequence"/>-->
+        <!--<field name="view_mode">tree</field>-->
+        <!--<field name="view_id" ref="view_tree_jm_syu_student"/>-->
+        <!--<field name="act_window_id" ref="act_jm_syu_student"/>-->
+    <!--</record>-->
+
+    <!--<record model="ir.ui.view" id="syu_custom_plus_form_view">-->
+      <!--<field name="name">客户所招学生</field>-->
+      <!--<field name="model">jm.custom</field>-->
+      <!--<field name="inherit_id" ref="CustomManage.view_from_jm_custom"/>-->
+      <!--<field name="arch" type="xml">-->
+            <!--<div name="button_box" position="inside">-->
+                <!--<button class="oe_stat_button" type="action" name="%(DistanceEdu.act_jm_syu_student)d"-->
+                  <!--icon="fa-usd">-->
+                  <!--<field string="石大学生" name="syu_count" widget="statinfo"/>-->
+                <!--</button>-->
+            <!--</div>-->
+      <!--</field>-->
+    <!--</record>-->
+
+   <record id="syu_student_change_inputer" model="ir.ui.view">
+        <field name="name">石大学生更改归属</field>
+        <field name="model">jm.syu.student.change</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                  <field name="inputer_dpt" required="1"/>
+                  <field name="inputer"/>
+                </group>
+                <footer>
+                    <button string="更新信息" name="change_inputer" type="object" class="btn-primary"/>
+                    <!--<button string="补全计划" name="comp" type="object" class="btn-primary"/>-->
+                    <button string="取消" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <act_window id="syu_change_inputer_action"
+            name="完善归属"
+            src_model="jm.syu.student"
+            res_model="jm.syu.student.change"
+            view_type="form" view_mode="form"
+            view_id = 'syu_student_change_inputer'
+            key2="client_action_multi" target="new"
+            />
+  </data>
+</openerp>

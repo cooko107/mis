@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="users_plus_form_view">
+      <field name="name">users.plus.form</field>
+      <field name="model">res.users</field>
+      <field name="inherit_id" ref="base.view_users_form"/>
+      <field name="arch" type="xml">
+            <field name="name" position="after">
+                <label for="department" class="oe_edit_only" string="部门"/>
+                <field name="department" required="1"/>
+            </field>
+
+            <field name="login" position="after">
+                <label for="areacode" class="oe_edit_only" string="打印区号"/>
+                <field name="areacode"  required="0"/>
+            </field>
+
+            <field name="login" position="after">
+                <label for="platform" class="oe_edit_only" string="平台"/>
+                <field name="platform"  widget="many2many_tags" options="{'no_create_edit': True,'no_quick_create':True}" required="0"/>
+            </field>
+            <field name="login" position="after">
+                <label for="custom" class="oe_edit_only" string="渠道"/>
+                <field name="custom"  widget="many2many_tags" options="{'no_create_edit': True,'no_quick_create':True}" required="0"/>
+            </field>
+
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="users_plus_search">
+      <field name="name">users.plus.search</field>
+      <field name="model">res.users</field>
+      <field name="inherit_id" ref="base.view_users_search"/>
+      <field name="arch" type="xml">
+            <filter name="no_share" position="before">
+                <filter name="students" string="学生" domain="[('department','=','无')]"/>
+                <filter name="no_students" string="非学生" domain="[('department','!=','无')]"/>
+            </filter>
+      </field>
+    </record>
+  </data>
+</openerp>

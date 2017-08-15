@@ -1,0 +1,1094 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="view_form_jm_tju_student_charge">
+      <field name="name">天大学生收费登记form视图</field>
+      <field name="model">jm.tju.student</field>
+      <field name="priority">1</field>
+      <field name="arch" type="xml">
+          <form create="false" delete="false">
+            <header>
+              <button name="workflow_to_confirm" states="init,not_approve" string="提交审核" type="workflow" class="oe_highlight" />
+              <button name="workflow_approve" states="confirm" string="审核通过" type="workflow" class="oe_highlight"/>
+              <button name="workflow_not_approve" states="confirm" string="审核不通过" type="workflow" class="oe_highlight"/>
+              <field name="state" widget="statusbar" statusbar_visible="init,confirm"/>
+            </header>
+            <sheet>
+              <group string="学生信息">
+                <group>
+                  <field name="student" required="1" readonly="1"/>
+                  <field name="name_show"/>
+
+                </group>
+                <group>
+                  <field name="sex_show"/>
+                  <field name="birth_show"/>
+                </group>
+              </group>
+              <group string="报名信息">
+                <group >
+                  <field name = "batch" readonly="1"/>
+                  <field name = "level" readonly="1"/>
+                  <field name = "study_center" readonly="1"/>
+                  <field name = "major" readonly="1"/>
+                </group>
+                <group string="">
+                  <field name = "study_code" readonly="1"/>
+                  <field name = "inputer" readonly="1"/>
+                  <field name = "inputer_dpt" readonly="1"/>
+                  <field name = "beschool" readonly="1"/>
+                </group>
+              </group>
+              <group string="收费信息">
+                <group >
+                  <field name = "invoice_money"/>
+                  <field name = "invoice"/>
+                </group>
+                <group string="">
+                  <field name = "up_per" readonly="1"/>
+                </group>
+              </group>
+
+              <notebook>
+
+                <page string="收费明细">
+                    <field name="charge_details">
+                      <tree string="list" editable="bottom">
+                        <field name="project"/>
+                        <field name="fee"/>
+                        <field name="way"/>
+                        <field name="account"/>
+                        <field name="charge_time"/>
+                        <field name="confirm_state" readonly="1"/>
+                        <field name="remarks"/>
+                        <field name="deletable" invisible="1"/>
+                        <field name="readonly" invisible="1"/>
+                      </tree>
+                    </field>
+                </page>
+                <page string="上缴明细">
+                    <field name="up_school_detail" readonly="1">
+                      <tree string="list" editable="bottom">
+                        <field name="project" />
+                        <field name="fee" />
+                        <field name="way"/>
+                        <field name="account" />
+                        <field name="charge_time"/>
+                        <field name="remarks"/>
+                      </tree>
+                    </field>
+                </page>
+                <page string="收费情况">
+                    <field name="fee_line" options="{'no_create':'True','no_open': True}" readonly="1">
+                      <tree string="list" editable="bottom">
+                        <field name="project"/>
+                        <field name="fee"/>
+                        <field name="fee_charge"/>
+                        <field name="fee_charged"/>
+                        <field name="up_school_fee"/>
+                        <field name="deletable" invisible='1'/>
+                      </tree>
+                    </field>
+                </page>
+              </notebook>
+            </sheet>
+          </form>
+      </field>
+    </record>
+
+    <!--tree-->
+    <record model="ir.ui.view" id="view_tree_jm_tju_student_charge">
+      <field name="name">天大学生收费登记tree视图</field>
+      <field name="model">jm.tju.student</field>
+      <field name="priority">1</field>
+      <field name="arch" type = "xml">
+        <tree create="false">
+            <field name = "name_show"/>
+            <field name = "batch" />
+            <field name = "level"/>
+            <field name = "study_center"/>
+            <field name = "beschool"/>
+            <field name = "inputer_dpt"/>
+        </tree>
+      </field>
+    </record>
+
+    <!--高级搜索-->
+    <record id="view_jm_tju_student_charge_search" model="ir.ui.view">
+        <field name="name">天大学生收费登记搜索</field>
+        <field name="model">jm.tju.student</field>
+        <field name="arch" type="xml">
+            <search string="students">
+                <field name = "name_show"/>
+                <field name = "student"/>
+                <field name = "inputer_dpt"/>
+                <field name = "batch"/>
+            </search>
+        </field>
+    </record>
+
+    <!--action-->
+    <record model="ir.actions.act_window" id="action_jm_tju_student_charge">
+      <field name="name">天大学生收费登记</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.tju.student</field>
+      <field name="domain">[('state', 'in', ['init', 'not_approve'])]</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_jm_tju_student_charge_search"/>
+    </record>
+
+    <record id="action_tju_student_tree_charge" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_tree_jm_tju_student_charge"/>
+        <field name="act_window_id" ref="action_jm_tju_student_charge"/>
+    </record>
+
+    <record id="action_tju_student_form_charge" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_form_jm_tju_student_charge"/>
+        <field name="act_window_id" ref="action_jm_tju_student_charge"/>
+    </record>
+
+
+
+    <record model="ir.actions.act_window" id="action_jm_tju_student_charge_confirm">
+      <field name="name">天大学生收费审核</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.tju.student</field>
+      <field name="domain">[('state', 'in', ['confirm'])]</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_jm_tju_student_charge_search"/>
+    </record>
+
+
+
+
+
+
+
+
+    <record model="ir.ui.view" id="view_form_jm_syu_student_charge">
+      <field name="name">石大学生收费登记form视图</field>
+      <field name="model">jm.syu.student</field>
+      <field name="priority">1</field>
+      <field name="arch" type="xml">
+          <form create="false" delete="false">
+            <header>
+              <button name="workflow_to_confirm" states="init,not_approve" string="提交审核" type="workflow" class="oe_highlight" />
+              <button name="workflow_approve" states="confirm" string="审核通过" type="workflow" class="oe_highlight"/>
+              <button name="workflow_not_approve" states="confirm" string="审核不通过" type="workflow" class="oe_highlight"/>
+              <field name="state" widget="statusbar" statusbar_visible="init,confirm"/>
+            </header>
+            <sheet>
+              <group string="学生信息">
+                <group>
+                  <field name="student" required="1" readonly="1"/>
+                  <field name="name_show"/>
+
+                </group>
+                <group>
+                  <field name="sex_show"/>
+                  <field name="birth_show"/>
+                </group>
+              </group>
+              <group string="报名信息">
+                <group >
+                  <field name = "batch" readonly="1"/>
+                  <field name = "level" readonly="1"/>
+                  <field name = "study_center" readonly="1"/>
+                  <field name = "major" readonly="1"/>
+                </group>
+                <group string="">
+                  <field name = "study_no" readonly="1"/>
+                  <field name = "inputer" readonly="1"/>
+                  <field name = "inputer_dpt" readonly="1"/>
+                  <field name = "beschool" readonly="1"/>
+                </group>
+              </group>
+              <group string="收费信息">
+                <group >
+                  <field name = "invoice_money"/>
+                  <field name = "invoice"/>
+                </group>
+                <group string="">
+                  <field name = "up_per" readonly="1"/>
+                </group>
+              </group>
+              <notebook>
+                <page string="收费明细">
+                    <field name="charge_details">
+                      <tree string="list" editable="bottom">
+                        <field name="project"/>
+                        <field name="fee"/>
+                        <field name="way"/>
+                        <field name="account"/>
+                        <field name="charge_time"/>
+                        <field name="confirm_state" readonly="1"/>
+                        <field name="remarks"/>
+                        <field name="deletable" invisible="1"/>
+                        <field name="readonly" invisible="1"/>
+                      </tree>
+                    </field>
+                </page>
+                <page string="上缴明细">
+                    <field name="up_school_detail" readonly="1">
+                      <tree string="list" editable="bottom">
+                        <field name="project" />
+                        <field name="fee" />
+                        <field name="way"/>
+                        <field name="account" />
+                        <field name="charge_time"/>
+                        <field name="remarks"/>
+                      </tree>
+                    </field>
+                </page>
+                <page string="收费情况">
+                    <field name="fee_line" options="{'no_create':'True','no_open': True}" readonly="1">
+                      <tree string="list" editable="bottom">
+                        <field name="project"/>
+                        <field name="fee"/>
+                        <field name="fee_charge"/>
+                        <field name="fee_charged"/>
+                        <field name="up_school_fee"/>
+                        <field name="deletable" invisible='1'/>
+                      </tree>
+                    </field>
+                </page>
+              </notebook>
+            </sheet>
+          </form>
+      </field>
+    </record>
+
+    <!--tree-->
+    <record model="ir.ui.view" id="view_tree_jm_syu_student_charge">
+      <field name="name">石大学生收费登记tree视图</field>
+      <field name="model">jm.syu.student</field>
+      <field name="priority">1</field>
+      <field name="arch" type = "xml">
+        <tree create="false">
+            <field name = "name_show"/>
+            <field name = "batch" />
+            <field name = "level"/>
+            <field name = "study_center"/>
+            <field name = "beschool"/>
+            <field name = "inputer_dpt"/>
+        </tree>
+      </field>
+    </record>
+
+    <!--高级搜索-->
+    <record id="view_jm_syu_student_charge_search" model="ir.ui.view">
+        <field name="name">石大学生收费登记搜索</field>
+        <field name="model">jm.syu.student</field>
+        <field name="arch" type="xml">
+            <search string="students">
+                <field name = "name_show"/>
+                <field name = "student"/>
+                <field name = "inputer_dpt"/>
+                <field name = "batch"/>
+            </search>
+        </field>
+    </record>
+
+    <!--action-->
+    <record model="ir.actions.act_window" id="action_jm_syu_student_charge">
+      <field name="name">石大学生收费登记</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.syu.student</field>
+      <field name="domain">[('state', 'in', ['init', 'not_approve'])]</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_jm_syu_student_charge_search"/>
+    </record>
+
+    <record id="action_syu_student_tree_charge" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_tree_jm_syu_student_charge"/>
+        <field name="act_window_id" ref="action_jm_syu_student_charge"/>
+    </record>
+
+    <record id="action_syu_student_form_charge" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_form_jm_syu_student_charge"/>
+        <field name="act_window_id" ref="action_jm_syu_student_charge"/>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_jm_syu_student_charge_confirm">
+      <field name="name">石大学生收费审核</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.syu.student</field>
+      <field name="domain">[('state', 'in', ['confirm'])]</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_jm_syu_student_charge_search"/>
+    </record>
+
+
+
+
+    <record model="ir.ui.view" id="view_form_jm_nku_student_charge">
+      <field name="name">南开学生收费登记form视图</field>
+      <field name="model">jm.nku.student</field>
+      <field name="priority">1</field>
+      <field name="arch" type="xml">
+          <form create="false" delete="false">
+            <header>
+              <button name="workflow_to_confirm" states="init,not_approve" string="提交审核" type="workflow" class="oe_highlight" />
+              <button name="workflow_approve" states="confirm" string="审核通过" type="workflow" class="oe_highlight"/>
+              <button name="workflow_not_approve" states="confirm" string="审核不通过" type="workflow" class="oe_highlight"/>
+              <field name="state" widget="statusbar" statusbar_visible="init,confirm"/>
+            </header>
+            <sheet>
+              <group string="学生信息">
+                <group>
+                  <field name="student" required="1" readonly="1"/>
+                  <field name="name_show"/>
+
+                </group>
+                <group>
+                  <field name="sex_show"/>
+                  <field name="birth_show"/>
+                </group>
+              </group>
+              <group string="报名信息">
+                <group >
+                  <field name = "batch" readonly="1"/>
+                  <field name = "level" readonly="1"/>
+                  <field name = "study_center" readonly="1"/>
+                  <field name = "major" readonly="1"/>
+                </group>
+                <group string="">
+                  <field name = "study_num" readonly="1"/>
+                  <field name = "inputer" readonly="1"/>
+                  <field name = "inputer_dpt" readonly="1"/>
+                  <field name = "beschool" readonly="1"/>
+                </group>
+              </group>
+              <group string="收费信息">
+                <group >
+                  <field name = "invoice_money"/>
+                  <field name = "invoice"/>
+                </group>
+                <group string="">
+                  <field name = "up_per" readonly="1"/>
+                </group>
+              </group>
+              <notebook>
+
+                <page string="收费明细">
+                    <field name="charge_details">
+                      <tree string="list" editable="bottom">
+                        <field name="project"/>
+                        <field name="fee"/>
+                        <field name="way"/>
+                        <field name="account"/>
+                        <field name="charge_time"/>
+                        <field name="confirm_state" readonly="1"/>
+                        <field name="remarks"/>
+                        <field name="deletable" invisible="1"/>
+                        <field name="readonly" invisible="1"/>
+                      </tree>
+                    </field>
+                </page>
+                <page string="上缴明细">
+                    <field name="up_school_detail" readonly="1">
+                      <tree string="list" editable="bottom">
+                        <field name="project" />
+                        <field name="fee" />
+                        <field name="way"/>
+                        <field name="account" />
+                        <field name="charge_time"/>
+                        <field name="remarks"/>
+                      </tree>
+                    </field>
+                </page>
+                <page string="收费情况">
+                    <field name="fee_line" options="{'no_create':'True','no_open': True}" readonly="1">
+                      <tree string="list" editable="bottom">
+                        <field name="project"/>
+                        <field name="fee"/>
+                        <field name="fee_charge"/>
+                        <field name="fee_charged"/>
+                        <field name="up_school_fee"/>
+                        <field name="deletable" invisible='1'/>
+                      </tree>
+                    </field>
+                </page>
+              </notebook>
+            </sheet>
+          </form>
+      </field>
+    </record>
+
+    <!--tree-->
+    <record model="ir.ui.view" id="view_tree_jm_nku_student_charge">
+      <field name="name">南开学生收费登记tree视图</field>
+      <field name="model">jm.nku.student</field>
+      <field name="priority">1</field>
+      <field name="arch" type = "xml">
+        <tree create="false">
+            <field name = "name_show"/>
+            <field name = "batch" />
+            <field name = "level"/>
+            <field name = "study_center"/>
+            <field name = "beschool"/>
+            <field name = "inputer_dpt"/>
+        </tree>
+      </field>
+    </record>
+
+    <!--高级搜索-->
+    <record id="view_jm_nku_student_charge_search" model="ir.ui.view">
+        <field name="name">南开学生收费登记搜索</field>
+        <field name="model">jm.nku.student</field>
+        <field name="arch" type="xml">
+            <search string="students">
+                <field name = "name_show"/>
+                <field name = "student"/>
+                <field name = "inputer_dpt"/>
+                <field name = "batch"/>
+            </search>
+        </field>
+    </record>
+
+    <!--action-->
+    <record model="ir.actions.act_window" id="action_jm_nku_student_charge">
+      <field name="name">南开学生收费登记</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.nku.student</field>
+      <field name="domain">[('state', 'in', ['init', 'not_approve'])]</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_jm_nku_student_charge_search"/>
+    </record>
+
+    <record id="action_nku_student_tree_charge" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_tree_jm_nku_student_charge"/>
+        <field name="act_window_id" ref="action_jm_nku_student_charge"/>
+    </record>
+
+    <record id="action_nku_student_form_charge" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_form_jm_nku_student_charge"/>
+        <field name="act_window_id" ref="action_jm_nku_student_charge"/>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_jm_nku_student_charge_confirm">
+      <field name="name">南开学生收费审核</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.nku.student</field>
+      <field name="domain">[('state', 'in', ['confirm'])]</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_jm_nku_student_charge_search"/>
+    </record>
+
+
+
+
+    <record model="ir.ui.view" id="view_form_jm_zzu_student_charge">
+      <field name="name">郑大学生收费登记form视图</field>
+      <field name="model">jm.zzu.student</field>
+      <field name="priority">1</field>
+      <field name="arch" type="xml">
+          <form create="false" delete="false">
+            <header>
+              <button name="workflow_to_confirm" states="init,not_approve" string="提交审核" type="workflow" class="oe_highlight" />
+              <button name="workflow_approve" states="confirm" string="审核通过" type="workflow" class="oe_highlight"/>
+              <button name="workflow_not_approve" states="confirm" string="审核不通过" type="workflow" class="oe_highlight"/>
+              <field name="state" widget="statusbar" statusbar_visible="init,confirm"/>
+            </header>
+            <sheet>
+              <group string="学生信息">
+                <group>
+                  <field name="student" required="1" readonly="1"/>
+                  <field name="name_show"/>
+
+                </group>
+                <group>
+                  <field name="sex_show"/>
+                  <field name="birth_show"/>
+                </group>
+              </group>
+              <group string="报名信息">
+                <group >
+                  <field name = "batch" readonly="1"/>
+                  <field name = "level" readonly="1"/>
+                  <field name = "study_center" readonly="1"/>
+                  <field name = "major" readonly="1"/>
+                </group>
+                <group string="">
+                  <field name = "study_code" readonly="1"/>
+                  <field name = "inputer" readonly="1"/>
+                  <field name = "inputer_dpt" readonly="1"/>
+                  <field name = "beschool" readonly="1"/>
+                </group>
+              </group>
+              <group string="收费信息">
+                <group >
+                  <field name = "invoice_money"/>
+                  <field name = "invoice"/>
+                </group>
+                <group string="">
+                  <field name = "up_per" readonly="1"/>
+                </group>
+              </group>
+              <notebook>
+
+                <page string="收费明细">
+                    <field name="charge_details">
+                      <tree string="list" editable="bottom">
+                        <field name="project"/>
+                        <field name="fee"/>
+                        <field name="way"/>
+                        <field name="account"/>
+                        <field name="charge_time"/>
+                        <field name="confirm_state" readonly="1"/>
+                        <field name="remarks"/>
+                        <field name="deletable" invisible="1"/>
+                        <field name="readonly" invisible="1"/>
+                      </tree>
+                    </field>
+                </page>
+                <page string="上缴明细">
+                    <field name="up_school_detail" readonly="1">
+                      <tree string="list" editable="bottom">
+                        <field name="project" />
+                        <field name="fee" />
+                        <field name="way"/>
+                        <field name="account" />
+                        <field name="charge_time"/>
+                        <field name="remarks"/>
+                      </tree>
+                    </field>
+                </page>
+                <page string="收费情况">
+                    <field name="fee_line" options="{'no_create':'True','no_open': True}" readonly="1">
+                      <tree string="list" editable="bottom">
+                        <field name="project"/>
+                        <field name="fee"/>
+                        <field name="fee_charge"/>
+                        <field name="fee_charged"/>
+                        <field name="up_school_fee"/>
+                        <field name="deletable" invisible='1'/>
+                      </tree>
+                    </field>
+                </page>
+              </notebook>
+            </sheet>
+          </form>
+      </field>
+    </record>
+
+    <!--tree-->
+    <record model="ir.ui.view" id="view_tree_jm_zzu_student_charge">
+      <field name="name">郑大学生收费登记tree视图</field>
+      <field name="model">jm.zzu.student</field>
+      <field name="priority">1</field>
+      <field name="arch" type = "xml">
+        <tree create="false">
+            <field name = "name_show"/>
+            <field name = "batch" />
+            <field name = "level"/>
+            <field name = "study_center"/>
+            <field name = "beschool"/>
+            <field name = "inputer_dpt"/>
+        </tree>
+      </field>
+    </record>
+
+    <!--高级搜索-->
+    <record id="view_jm_zzu_student_charge_search" model="ir.ui.view">
+        <field name="name">郑大学生收费登记搜索</field>
+        <field name="model">jm.zzu.student</field>
+        <field name="arch" type="xml">
+            <search string="students">
+                <field name = "name_show"/>
+                <field name = "student"/>
+                <field name = "inputer_dpt"/>
+                <field name = "batch"/>
+            </search>
+        </field>
+    </record>
+
+    <!--action-->
+    <record model="ir.actions.act_window" id="action_jm_zzu_student_charge">
+      <field name="name">郑大学生收费登记</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.zzu.student</field>
+      <field name="domain">[('state', 'in', ['init', 'not_approve'])]</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_jm_zzu_student_charge_search"/>
+    </record>
+
+    <record id="action_zzu_student_tree_charge" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_tree_jm_zzu_student_charge"/>
+        <field name="act_window_id" ref="action_jm_zzu_student_charge"/>
+    </record>
+
+    <record id="action_zzu_student_form_charge" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_form_jm_zzu_student_charge"/>
+        <field name="act_window_id" ref="action_jm_zzu_student_charge"/>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_jm_zzu_student_charge_confirm">
+      <field name="name">郑大学生收费审核</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.zzu.student</field>
+      <field name="domain">[('state', 'in', ['confirm'])]</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_jm_zzu_student_charge_search"/>
+    </record>
+
+
+
+
+    <record model="ir.ui.view" id="view_from_student_charge_details">
+      <field name="name">学生收费明细form视图</field>
+      <field name="model">jm.student.charge.details</field>
+      <field name="arch" type="xml">
+          <form edit="false">
+            <sheet>
+              <group string="收费信息">
+                <group>
+                  <field name = "project"/>
+                  <field name = "fee"/>
+                  <field name = "way"/>
+                  <field name = "account" />
+                  <field name = "charge_time"/>
+                </group>
+              </group>
+            </sheet>
+          </form>
+      </field>
+    </record>
+
+
+
+
+    <!--学生收费明细视图-->
+    <record model="ir.ui.view" id="view_tree_student_charge_details">
+      <field name="name">学生收费明细tree视图</field>
+      <field name="model">jm.student.charge.details</field>
+      <field name="arch" type = "xml">
+        <tree>
+            <field name = "project"/>
+            <field name = "fee"/>
+            <field name = "way"/>
+            <field name = "account" />
+            <field name = "charge_time"/>
+            <field name = "printed"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="form_view_tju_student_add_con">
+      <field name="name">天大学生扩展试图</field>
+      <field name="model">jm.tju.student</field>
+      <field name="inherit_id" ref="DistanceEdu.view_form_jm_tju_student"/>
+      <field name="arch" type="xml">
+            <notebook position="inside">
+              <page string="收费情况">
+                  <field name="fee_line" options="{'no_create':'True','no_open': True}">
+                    <tree string="list" editable="bottom">
+                      <field name="project"/>
+                      <field name="fee"/>
+                      <field name="fee_charge"/>
+                      <field name="fee_charged"/>
+                      <field name="deletable" invisible='1'/>
+                    </tree>
+                  </field>
+              </page>
+              <page string="收费明细">
+
+                  <field name="charge_details">
+                    <tree string="list" editable="bottom">
+                      <field name="project"/>
+                      <field name="fee"/>
+                      <field name="way"/>
+                      <field name="account"/>
+                      <field name="charge_time"/>
+                      <field name="confirm_state"/>
+                      <field name="remarks"/>
+                      <field name="deletable" invisible="1"/>
+                      <field name="readonly" invisible="1"/>
+                    </tree>
+                  </field>
+              </page>
+              <page string="上缴明细">
+                  <field name="up_school_detail">
+                    <tree string="list" editable="bottom">
+                      <field name="project" />
+                      <field name="fee" />
+                      <field name="way"/>
+                      <field name="account" />
+                      <field name="charge_time"/>
+                      <field name="remarks"/>
+                    </tree>
+                  </field>
+              </page>
+
+            </notebook>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="form_view_syu_student_add_con">
+      <field name="name">石大学生扩展试图</field>
+      <field name="model">jm.syu.student</field>
+      <field name="inherit_id" ref="DistanceEdu.view_form_jm_syu_student"/>
+      <field name="arch" type="xml">
+            <notebook position="inside">
+              <page string="收费情况">
+                  <field name="fee_line" options="{'no_create':'True','no_open': True}">
+                    <tree string="list" editable="bottom">
+                      <field name="project"/>
+                      <field name="fee"/>
+                      <field name="fee_charged"/>
+                      <field name="deletable" invisible='1'/>
+                    </tree>
+                  </field>
+              </page>
+              <page string="收费明细">
+                  <field name="charge_details">
+                    <tree string="list" editable="bottom">
+                      <field name="project"/>
+                      <field name="fee"/>
+                      <field name="way"/>
+                      <field name="account"/>
+                      <field name="charge_time"/>
+                      <field name="confirm_state"/>
+                      <field name="remarks"/>
+                      <field name="deletable" invisible="1"/>
+                      <field name="readonly" invisible="1"/>
+                    </tree>
+                  </field>
+              </page>
+              <page string="上缴明细">
+                  <field name="up_school_detail">
+                    <tree string="list" editable="bottom">
+                      <field name="project" />
+                      <field name="fee" />
+                      <field name="way"/>
+                      <field name="account" />
+                      <field name="charge_time"/>
+                      <field name="remarks"/>
+
+                    </tree>
+                  </field>
+              </page>
+
+            </notebook>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="form_view_zzu_student_add_con">
+      <field name="name">郑大学生扩展试图</field>
+      <field name="model">jm.zzu.student</field>
+      <field name="inherit_id" ref="DistanceEdu.view_form_jm_zzu_student"/>
+      <field name="arch" type="xml">
+            <notebook position="inside">
+              <page string="收费情况">
+                  <field name="fee_line" options="{'no_create':'True','no_open': True}">
+                    <tree string="list" editable="bottom">
+                      <field name="project"/>
+                      <field name="fee"/>
+                      <field name="fee_charged"/>
+                      <field name="deletable" invisible='1'/>
+                    </tree>
+                  </field>
+              </page>
+              <page string="收费明细">
+                  <field name="charge_details">
+                    <tree string="list" editable="bottom">
+                      <field name="project"/>
+                      <field name="fee"/>
+                      <field name="way"/>
+                      <field name="account"/>
+                      <field name="charge_time"/>
+                      <field name="confirm_state"/>
+                      <field name="remarks"/>
+                      <field name="deletable" invisible="1"/>
+                      <field name="readonly" invisible="1"/>
+                    </tree>
+                  </field>
+                </page>
+                <page string="上缴明细">
+                  <field name="up_school_detail">
+                    <tree string="list" editable="bottom">
+                      <field name="project" />
+                      <field name="fee" />
+                      <field name="way"/>
+                      <field name="account" />
+                      <field name="charge_time"/>
+                      <field name="remarks"/>
+
+                    </tree>
+                  </field>
+              </page>
+
+            </notebook>
+      </field>
+    </record>
+
+
+
+    <record model="ir.ui.view" id="form_view_nku_student_add_con">
+      <field name="name">南开学生扩展试图</field>
+      <field name="model">jm.nku.student</field>
+      <field name="inherit_id" ref="DistanceEdu.view_form_jm_nku_student"/>
+      <field name="arch" type="xml">
+            <notebook position="inside">
+              <page string="收费情况">
+                  <field name="fee_line" options="{'no_create':'True','no_open': True}">
+                    <tree string="list" editable="bottom">
+                      <field name="project"/>
+                      <field name="fee"/>
+                      <field name="fee_charge"/>
+                      <field name="fee_charged"/>
+                      <field name="deletable" invisible='1'/>
+                    </tree>
+                  </field>
+              </page>
+              <page string="收费明细">
+                  <field name="charge_details">
+                    <tree string="list" editable="bottom">
+                      <field name="project"/>
+                      <field name="fee"/>
+                      <field name="way"/>
+                      <field name="account"/>
+                      <field name="charge_time"/>
+                      <field name="confirm_state"/>
+                      <field name="remarks"/>
+                      <field name="deletable" invisible="1"/>
+                      <field name="readonly" invisible="1"/>
+                    </tree>
+                  </field>
+                </page>
+                <page string="上缴明细">
+                  <field name="up_school_detail">
+                    <tree string="list" editable="bottom">
+                      <field name="project" />
+                      <field name="fee" />
+                      <field name="way"/>
+                      <field name="account" />
+                      <field name="charge_time"/>
+                      <field name="remarks"/>
+                    </tree>
+                  </field>
+              </page>
+
+            </notebook>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="view_form_student_charge_import">
+      <field name="name">学生收费导入form视图</field>
+      <field name="model">jm.finance.charge.import</field>
+      <field name="arch" type="xml">
+          <form>
+            <sheet>
+              <group>
+                <group>
+                  <field name="batch" required="1"/>
+                  <field name="school" required="1"/>
+                  <field name="idcard" required="1"/>
+                  <field name="name" required="1"/>
+                  <field name="study_code" required="1"/>
+                  <field name="project" required="1"/>
+                  <field name="money" required="1"/>
+                  <field name="way" required="0"/>
+                  <field name="account" required="0"/>
+                  <field name="time" required="0"/>
+                  <field name="remarks" required="0"/>
+                </group>
+                <group>
+
+                </group>
+              </group>
+            </sheet>
+          </form>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="view_tree_student_charge_import">
+      <field name="name">学生收费导入form视图</field>
+      <field name="model">jm.finance.charge.import</field>
+      <field name="priority">1</field>
+      <field name="arch" type = "xml">
+        <tree>
+          <field name="batch"/>
+          <field name="name"/>
+          <field name="study_code"/>
+          <field name="project"/>
+          <field name="money"/>
+          <field name="time"/>
+          <field name="account"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_student_charge_import">
+      <field name="name">学生收费导入</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.finance.charge.import</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record id="view_form_student_charge_import_confirm" model="ir.ui.view">
+        <field name="name">学生收费批量导入确认</field>
+        <field name="model">jm.finance.charge.import.confirm</field>
+        <field name="arch" type="xml">
+            <form string="Confirm Draft Invoices">
+                <p class="oe_grey">
+                    导入即进入审批流程
+                </p>
+                <footer>
+                    <button string="确认导入" name="real_import" type="object" default_focus="1" class="btn-primary"/>
+                    <button string="取消" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <act_window id="nku_up_fee_confirm"
+            name="导入收费"
+            src_model="jm.finance.charge.import"
+            res_model="jm.finance.charge.import.confirm"
+            view_type="form" view_mode="form"
+            view_id = 'view_form_student_charge_import_confirm'
+            key2="client_action_multi" target="new"
+            />
+
+
+
+
+
+    <!--收款账户视图-->
+    <record model="ir.ui.view" id="view_from_jm_charge_account">
+      <field name="name">收款账户form视图</field>
+      <field name="model">jm.charge.account</field>
+      <field name="arch" type="xml">
+          <form>
+            <sheet>
+                <field name="account" required="1"/>
+            </sheet>
+          </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_tree_jm_charge_account">
+      <field name="name">收款账户tree视图</field>
+      <field name="model">jm.charge.account</field>
+      <field name="priority">1</field>
+      <field name="arch" type = "xml">
+        <tree string = "收款账户">
+            <field name = "account"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_jm_charge_account">
+      <field name="name">收款账户信息</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.charge.account</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+    <record model="ir.ui.view" id="view_from_jm_pre_charge_student">
+      <field name="name">学生预缴费form视图</field>
+      <field name="model">jm.pre.charge.student</field>
+      <field name="arch" type="xml">
+          <form>
+            <sheet>
+              <group>
+                <group>
+                  <field name="name"/>
+                  <field name="idcard"/>
+                  <field name="sex"/>
+                  <field name="phone"/>
+                  <field name="inputer"/>
+                </group>
+                <group>
+                  <field name="batch"/>
+                  <field name="level"/>
+                  <field name="school"/>
+                  <field name="study_center" options="{'no_create':True}"/>
+                </group>
+
+              </group>
+              <group>
+                <field name="fee_line">
+                  <tree string="list" editable="bottom">
+                    <field name="project"/>
+                    <field name="fee"/>
+                    <field name="way"/>
+                    <field name="account"/>
+                    <field name="charge_time"/>
+                    <field name="remarks"/>
+                  </tree>
+                </field>
+              </group>
+
+            </sheet>
+          </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_tree_jm_pre_charge_student">
+      <field name="name">学生预缴费tree视图</field>
+      <field name="model">jm.pre.charge.student</field>
+      <field name="priority">1</field>
+      <field name="arch" type = "xml">
+        <tree>
+            <field name = "name"/>
+            <field name = "idcard"/>
+            <field name = "batch"/>
+            <field name = "level"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_jm_pre_charge_student">
+      <field name="name">学生预缴费</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.pre.charge.student</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!--权限组-->
+    <record model="ir.module.category" id="module_category_finance">
+        <field name="name">财务管理</field>
+        <field name="description">财务管理人员分组</field>
+        <field name="sequence">1</field>
+    </record>
+  </data>
+</openerp>

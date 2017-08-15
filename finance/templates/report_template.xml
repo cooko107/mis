@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_receipt_template">
+
+            <div class="page">
+                <h2>财务收据</h2>
+                <h3>收据内容</h3>
+                <p>项目：<t t-esc="project"/></p>
+                <p>防伪码：<t t-esc="code"/></p>
+                <p>打印码：<t t-esc="num"/></p>
+                <p>姓名：<t t-esc="name"/></p>
+                <p>收费：<t t-esc="money"/></p>
+                <p>收费：<t t-esc="chinese_money"/></p>
+            </div>
+
+        </template>
+
+        <template id="pre_charge_report_receipt_template">
+          <t t-foreach="docs" t-as="doc">
+            <div class="page">
+                <h2>财务收据</h2>
+                <h3>收据内容</h3>
+                <p>防伪码：<t t-esc="doc.name"/></p>
+                <p>姓名：<t t-esc="doc.name"/></p>
+                <p>收费：<t t-esc="doc.name"/></p>
+                <p>收费：<t t-esc="doc.name"/></p>
+            </div>
+          </t>
+        </template>
+    </data>
+</openerp>

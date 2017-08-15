@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<link rel="stylesheet" href="/web/static/src/dist/css/bootstrap.css" />
+		<link rel="stylesheet" href="/web/static/src/dist/css/bootstrap-theme.min.css"/>
+		<link rel="stylesheet" href="/web/static/src/dist/css/bootstrap.min.css"/>
+		<script src="/web/static/src/dist/js/jquery-3.0.0.min.js"></script>
+		<script src="/web/static/src/dist/js/bootstrap.js"></script>
+		<title></title>
+		<style>
+			h4{font-family: "微软雅黑";font-weight: bold;font-size:15px;}
+			p{font-family: "微软雅黑";text-align: center;font-size:13px;}
+			#hint li{
+				list-style-type: none;
+				height: 40px;
+				font-family: "微软雅黑";
+				line-height: 40px;
+				padding: 0 0 0 10px;
+				border-bottom: 1px solid #F2DEDE;
+			}
+			#school{
+				border-radius: 10px;
+				text-align: center;
+				overflow: auto;
+			}
+			#hint{
+				padding: 0;
+				z-index: 10;
+				background-color: #F2F2F2;
+				margin-top: -15px;
+				margin-bottom: 25px;
+			}
+		</style>
+	</head>
+	<body style="background-color: #F2DEDE;padding: 20px;>
+		<div class="container">
+			<div class="form-group">
+				<div class="input-group">
+					<label class="input-group-addon">层次</label>
+					<select class="form-control" name="cengci" id="cengci">
+						<option value="">请选择--</option>
+						<option value="专升本">专升本</option>
+						<option value="高起专">高起专</option>
+						<option value="高起本">高起本</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="input-group">
+					<label class="input-group-addon">专业</label>
+					<input class="form-control" name="major" id="major" placeholder="请搜索就读专业"/>
+				</div>
+			</div>
+
+				<ul id="hint">
+
+				</ul>
+
+
+
+			<div class="form-group">
+				<button type="button" class="btn btn-success" style="width: 100%;" id="query">查询</button>
+			</div>
+
+
+
+			<div class="form-group" id="finally">
+
+			</div>
+
+		</div>
+
+
+		<script>
+			var cengci,major,hint,path,parent,value,level,txt,jieguo;
+			var arr1 = new Array()
+			var arr2 = new Array()
+			var reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/
+			parent = document.getElementById('hint').parentElement
+
+			path = '/';
+			jieguo = document.getElementById('finally')
+			cengci = document.getElementById('cengci')
+			major = document.getElementById('major')
+			hint = document.getElementById('hint')
+			cengci.onchange = function(){
+				level = this.value
+			}
+
+
+			document.getElementById('query').onclick=function(){
+				jieguo.innerHTML = ''
+				txt = major.value;
+				console.log(txt)
+				$.ajax({
+			     	url:path + 'jmdisedu/get/schools',
+			     	type:'get',
+			     	data:{
+			     		level:level,
+			     		major:txt
+			     	},
+			     	dataType:'jsonp',
+			     	jsonp:'callback',
+			     	jsonpCallback:'getSchool',
+			     	success:function(data){},
+			     	error:function(XMLHttpRequest, textStatus, errorThrown) {
+
+			     	}
+				});
+
+
+			}
+
+			function getSchool(result){
+				if(result.length == 0){
+					jieguo.innerHTML = '该专业及层次暂无可就读学习中心'
+
+				}
+				else{
+					for(var i=0;i<result.length;i++){
+						var h = document.createElement('h4')
+						h.innerHTML = result[i].school
+						jieguo.appendChild(h)
+						for(var j=0;j<result[i].sc.length;j++){
+							var p = document.createElement('p')
+							p.innerHTML = result[i].sc[j]
+							jieguo.appendChild(p)
+						}
+					}
+				}
+
+			}
+
+
+
+
+			major.addEventListener('input',function(){
+				arr2.length = 0
+				hint.innerHTML = ''
+				value = this.value
+				if(reg.test(value)){
+					for(var i=0;i<arr1.length;i++){
+						if(arr1[i].indexOf(value)>-1){
+							arr2[i] = arr1[i]
+						}
+					}
+					get()
+				}
+			})
+
+			function get(){
+				for(var i=0;i<arr2.length;i++){
+					if(arr2[i]!=undefined){
+						var li = document.createElement('li')
+						li.innerHTML = arr2[i]
+						li.onclick=function(){
+							major.value = this.innerHTML
+							hint.innerHTML = ''
+						}
+						hint.appendChild(li)
+					}
+				}
+				hint.style.display = 'block'
+			}
+
+			$(document).ready(function(){
+				$.ajax({
+			     	url:path + 'jmdisedu/render/major',
+			     	type:'get',
+			     	dataType:'jsonp',
+			     	jsonp:'callback',
+			     	jsonpCallback:'getMajor',
+			     	success:function(data){},
+			     	error:function(XMLHttpRequest, textStatus, errorThrown) {
+
+			     	}
+				});
+			})
+
+			function getMajor(result){
+				for(var i=0;i<result.length;i++){
+					arr1[i] = result[i]
+				}
+			}
+		</script>
+	</body>
+</html>

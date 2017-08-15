@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-extend="ListView.row">
+        <t t-jquery="td.oe_list_record_delete" t-operation="replace">
+            <td t-if="record.get('deletable') or record.get('deletable')==null and options.deletable" class='oe_list_record_delete' width='6px'>
+               <span name="delete" class="fa fa-trash-o"/>
+        	</td>
+        </t>
+    </t>
+</templates>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- explicit list view definition -->
+    <!-- 报名点1 -->
+    <record model="ir.ui.view" id="view_from_jm_contact">
+      <field name="name">jm.contact.form</field>
+      <field name="model">jm.contact</field>
+      <field name="arch" type="xml">
+          <form string = "窗体名称">
+            <sheet>
+                  <group>
+                    <group string="身份信息">
+                      <field name = "name" required = '1'/>
+                      <field name = "sex" required = '0' widget="checkbox"/>
+                      <field name = "idcard" required = '0'/>
+                      <field name = "call"/>
+                      <field name = "department" required = '0'/>
+                      <!--<field name = "headimgurl" required = '0'/>-->
+                    </group>
+
+                    <group string="职务信息">
+                      <field name = "post" required = '0'/>
+                      <field name = "responsible_business" required = '0'/>
+                      <field name = "date" required = '0'/>
+                      <field name = "origin" required = '0'/>
+                      <field name = "interest" required = '0'/>
+                    </group>
+                  </group>
+                  <group>
+                    <group string="联系信息">
+                      <field name = "phone" required = '1'/>
+                      <field name = "business_phone" required = '0'/>
+                      <field name = "wchat" required = '0'/>
+                      <field name = "qq" required = '0' attrs="{'invisible': [('wchat','=','user.login')]}"/>
+                      <field name = "email" required = '0'/>
+                    </group>
+                    <group string="地址信息">
+                      
+                      <field name = "province" required = '0' on_change = 'province_change(province)'/>
+                      <field name = "city" required = '0' on_change = 'city_change(city)'/>
+                      <field name = "county" required = '0' />
+                      <field name = "detail_area"/>
+                      <field name = "zipcode" required = '0'/>
+                    </group>
+                  </group>
+                  <group>
+                    <field name = 'remarks'/>
+                    <!--<field name = 'attach' widget="many2many_binary" class="oe_inline"/>
+                    <field name = 'headimg'/>-->
+                  </group>
+
+                 
+            </sheet>
+          </form>
+      </field>
+    </record>
+
+    <record id="view_project_pivot" model="ir.ui.view">
+        <field name="name">project.task.pivot</field>
+        <field name="model">jm.contact</field>
+        <field name="arch" type="xml">
+            <pivot string="Project Tasks">
+
+            </pivot>
+        </field>
+    </record>
+    
+    <!-- actions opening views on models -->
+
+    <record model="ir.ui.view" id="view_tree_jm_contact">
+      <field name="name">jm.contact.tree</field>
+      <field name="model">jm.contact</field>
+      <field name="priority">1</field>
+      <field name="arch" type = "xml">
+        <tree string = "">
+          <field name = "name"/>
+          <field name = "call"/>
+          <field name = "sex"/>
+          <field name = "phone"/>
+          <field name = "qq"/>
+          <field name = "wchat"/>
+        </tree>
+      </field>
+    </record>
+    
+    
+    <record model="ir.actions.act_window" id="action_jm_contact">
+      <field name="name">联系人管理</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.contact</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,pivot,form</field>
+      <field name="help" type = "xml">
+        <p class = "oe.view.nocontent_create">
+          请新建联系人信息
+        </p>
+      </field>
+    </record>
+
+    <record id="act_jm_contact" model="ir.actions.act_window">
+        <field name="name">联系人</field>
+        <field name="res_model">jm.contact</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Create a Quotation, the first step of a new sale.
+          </p><p>
+            Your next actions should flow efficiently: confirm the Quotation to a Sale Order, then create the Invoice and collect the Payment.
+          </p><p>
+            Note that once a Quotation becomes a Sale Order, it will be moved from the Quotations list to the Sales Order list.
+          </p>
+        </field>
+    </record>
+
+    <record id="contact_line_tree" model="ir.actions.act_window">
+            <field name="name">Test</field>
+            <field name="res_model">jm.contact</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">purchase_order_line_compare</field>
+            <field name="view_id" ref="view_tree_jm_contact"/>
+    </record>
+
+<!--
+    <record model="ir.ui.view" id="kanban_view_jm_contact">
+        <field name="name">jm-contact Kanban</field>
+        <field name="model">jm.contact</field>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+            <kanban class="jm_contact_kanban">
+                <templates>
+                    <t t-name="kanban-box">
+                    <div class="oe_kanban_global_click">
+                        <div class="oe_kanban_details">
+                            <strong>
+                                <field name="name"/>
+                            </strong>
+                            <ul>
+                                <li id="last_login"/>
+                                <li ><field name="idcard"/></li>
+                                <li ><field name="sex"/></li>
+                                <li ><i class="fa fa-envelope"></i> <field name="email"/></li>
+                                <li ><i class="fa fa-phone"></i> <field name="phone"/></li>
+                            </ul>
+      
+                        </div>
+                    </div>
+                    </t>
+                </templates>
+            </kanban>
+
+        </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+
+    <!-- menu categories -->
+
+  </data>
+</openerp>

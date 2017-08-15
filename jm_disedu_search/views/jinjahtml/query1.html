@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<link rel="stylesheet" href="/web/static/src/dist/css/bootstrap.css" />
+		<link rel="stylesheet" href="/web/static/src/dist/css/bootstrap-theme.min.css"/>
+		<link rel="stylesheet" href="/web/static/src/dist/css/bootstrap.min.css"/>
+		<script src="/web/static/src/dist/js/jquery-3.0.0.min.js"></script>
+		<script src="/web/static/src/dist/js/bootstrap.js"></script>
+		<title></title>
+		<style>
+			#major{
+
+				padding: 0;
+			}
+			#major li{
+				list-style-type:none;
+				height: 40px;
+				border-bottom: 1px solid #F29C9F;
+				line-height: 40px;
+				position: relative;
+			}
+			.left,.right{
+				position: absolute;
+				font-family: "微软雅黑";
+			}
+			.left{left: 5px;}
+			.right{right: 5px;}
+
+		</style>
+	</head>
+	<body style="background-color: #F2DEDE;padding: 20px;>
+		<div class="container">
+			<div class="form-group">
+				<label>高校:</label>
+				<select class="form-control" name="school" id="school">
+					
+				</select>
+			</div>
+			<div class="form-group">
+				<label>学习中心:</label>
+				<select class="form-control" name="region" id="region">
+					
+				</select>
+			</div>
+			<div class="form-group">
+				<label>层次:</label>
+				<select class="form-control" name="cengci" id="cengci">
+					<option>请选择--</option>
+					<option>专升本</option>
+					<option>高起专</option>
+					<option>高起本</option>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<button type="button" class="btn btn-success" style="width: 100%;" id="query">查询</button>
+			</div>
+			
+			<div class="form-group">
+				<label>专业及收费:</label>
+			</div>
+			
+			<ul id="major">
+				
+			</ul>
+		</div>
+		
+		
+		<script>
+			var region,school,cengci,major,query;
+			var value,level,centre;
+			var path = '/';
+			region = document.getElementById('region')
+			school = document.getElementById('school')
+			cengci = document.getElementById('cengci')
+			major = document.getElementById('major')
+			query = document.getElementById('query')
+			region.onchange = function(){
+				centre = $(region).find("option:selected").text(); 
+			}
+			school.onchange = function(){
+				value = this.value
+				CentreLink();
+			}
+			cengci.onchange = function(){
+				level = $(cengci).find("option:selected").text(); 
+			}
+			
+			query.onclick=function(){
+				$(document).ready(function(){
+					$.ajax({
+				     	url:path + 'jmdisedu/getmajor/',
+				     	type:'get',
+				     	data:{
+				     		school:value,
+				     		level:level,
+				     		sc:centre
+				     	},
+				     	dataType:'jsonp',
+				     	jsonp:'callback',
+				     	jsonpCallback:'getMajor',
+				     	success:function(data){},
+				     	error:function(XMLHttpRequest, textStatus, errorThrown) {
+
+				     	}
+					});
+				})
+			
+				
+			}
+			
+			function getMajor(result){
+				if(result.length == 0){
+					major.innerHTML = '暂时未开放该层次的可读专业'
+				}
+				else{
+					major.innerHTML = ''
+					for(var i=0;i<result.length;i++){
+						var li = document.createElement('li')
+						var spanL = document.createElement('span')
+						var spanR = document.createElement('span')
+						spanL.setAttribute('class','left')
+						spanR.setAttribute('class','right')
+						spanL.innerHTML = result[i].name
+						spanR.innerHTML = result[i].fee
+						li.appendChild(spanL)
+						li.appendChild(spanR)
+						major.appendChild(li)
+					}
+				}
+			}
+			
+			
+			/*
+			 	一一一
+			 * 
+			 * */
+			
+			$(document).ready(function(){
+				$.ajax({
+			     	url:path + 'jmdisedu/getschool',
+			     	type:'get',
+			     	dataType:'jsonp',
+			     	jsonp:'callback',
+			     	jsonpCallback:'getSchool',
+			     	success:function(data){},
+			     	error:function(XMLHttpRequest, textStatus, errorThrown) {
+
+			     	}
+				});
+			})
+			
+			
+			function getSchool(result){
+				var opt1 = document.createElement('option')
+				var opt2 = document.createElement('option')
+				opt1.innerHTML = '请选择--'
+				opt2.innerHTML = '请选择--'
+				school.appendChild(opt1)
+				region.appendChild(opt2)
+				for(var i=0;i<result.length;i++){
+					var opt = document.createElement('option')
+					opt.innerText = result[i].name
+					opt.setAttribute('value',result[i].value)
+					school.appendChild(opt)
+				}
+			}
+			
+			
+			
+			
+			/*
+			 	二二二二二
+			 * 
+			 * */
+			function CentreLink(){
+				$(document).ready(function(){
+					$.ajax({
+				     	url:path + 'jmdisedu/getsc/' + value,
+				     	type:'get',
+				     	dataType:'jsonp',
+				     	jsonp:'callback',
+				     	jsonpCallback:'getSchoolCentre',
+				     	success:function(data){},
+				     	error:function(XMLHttpRequest, textStatus, errorThrown) {
+
+				     	}
+					});
+				})
+			}
+			
+			
+			function getSchoolCentre(result){
+				region.innerHTML = ''
+				var opt = document.createElement('option')
+				opt.innerHTML = '请选择--'
+				region.appendChild(opt)
+				for(var i=0;i<result.length;i++){
+					var opt = document.createElement('option')
+					opt.innerHTML = result[i]
+					region.appendChild(opt)
+				}
+			}
+			
+			
+			
+		</script>
+	</body>
+</html>

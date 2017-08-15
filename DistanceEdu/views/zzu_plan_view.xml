@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="view_from_jm_zzu_plan">
+      <field name="name">郑大招生计划查看form视图</field>
+      <field name="model">jm.zzu.plan</field>
+      <field name="arch" type="xml">
+          <form string = "" create="false" edit="false">
+            <sheet>
+              <group>
+                <group>
+                  <field name="batch"/>
+                  <field name="type"/>
+                  <field name="study_center"/>
+                  <field name="show_name"/>
+
+                </group>
+              </group>
+              <group>
+                <field name="items">
+                  <tree string="list" editable="bottom">
+                    <field name="item"/>
+                    <field name="money"/>
+                  </tree>
+
+                </field>
+              </group>
+              <group>
+                <field name = 'remarks'/>
+              </group>
+
+            </sheet>
+          </form>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.ui.view" id="view_tree_jm_zzu_plan">
+      <field name="name">郑大招生计划查看tree视图</field>
+      <field name="model">jm.zzu.plan</field>
+      <field name="priority">1</field>
+      <field name="arch" type = "xml">
+        <tree string = "" create="false">
+          <field name="batch"/>
+          <field name="type"/>
+          <field name="study_center"/>
+          <field name="show_name"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_jm_zzu_plan_search" model="ir.ui.view">
+        <field name="name">郑大招生计划查看搜索</field>
+        <field name="model">jm.zzu.plan</field>
+        <field name="arch" type="xml">
+            <search string="plan">
+                <filter name="normal" string="正常显示" domain="[('major','=','1')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_jm_zzu_plan">
+      <field name="name">郑大招生计划查看</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.zzu.plan</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[]</field>
+      <field name="search_view_id" ref="view_jm_zzu_plan_search"/>
+      <field name="context">{'search_default_normal': 1}</field>
+      <field name="help" type = "xml">
+        <p class = "oe.view.nocontent_create">
+        </p>
+      </field>
+    </record>
+
+
+    <!--<record id="action_jm_zzu_plan_delete" model="ir.actions.server">-->
+      <!--<field name="name">全部删除</field>-->
+      <!--<field name="model_id" ref="model_jm_zzu_plan"/>-->
+      <!--<field name="code">-->
+          <!--self.delete(cr, uid, context=context)-->
+      <!--</field>-->
+    <!--</record>-->
+
+    <!--<record id="jm_zzu_delete_plan" model="ir.values">-->
+      <!--<field eval="'client_action_multi'" name="key2"/>-->
+      <!--<field eval="'jm.zzu.plan'" name="model"/>-->
+      <!--<field name="name">全部删除</field>-->
+      <!--<field eval="'ir.actions.server,%d'%action_jm_zzu_plan_delete" name="value"/>-->
+    <!--</record>-->
+  </data>
+</openerp>

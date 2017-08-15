@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+      <record id="view_form_jm_zzu_report2" model="ir.ui.view">
+        <field name="name">report2</field>
+        <field name="model">jm.zzu.report2</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <group col="3">
+                    <group>
+                        <field name="batch"/>
+                        <field name="start_time"/>
+                        <field name="end_time"/>
+                    </group>
+                    <group>
+
+                    </group>
+                    <group>
+
+                    </group>
+                </group>
+                <footer>
+                    <button string="生成报表" name="generate_report2" type="object" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_tree_jm_zzu_report2">
+          <field name="name">jm.zzu.report2.tree</field>
+          <field name="model">jm.zzu.report2</field>
+          <field name="priority">1</field>
+          <field name="arch" type = "xml">
+            <tree string = "天大报名学生">
+                <field name = "start_time"/>
+                <field name = "end_time"/>
+                <field name = "qd"/>
+                <field name = "ben_count"/>
+                <field name = "zhuan_count"/>
+                <field name = "sum_count" />
+                <field name = "wbl"/>
+                <field name = "ylq"/>
+            </tree>
+          </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_jm_zzu_report2">
+          <field name="name">渠道招生统计</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="res_model">jm.zzu.report2</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">tree,form</field>
+          <field name="help" type = "xml">
+            <p class = "oe.view.nocontent_create">
+              请新建报表
+            </p>
+          </field>
+        </record>
+
+
+
+
+  </data>
+</openerp>

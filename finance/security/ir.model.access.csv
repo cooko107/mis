@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_jm_student_order,jm.student.order,DistanceEdu.model_jm_student_order,finance.finance_users,1,0,0,0
+access_jm_charge,jm.charge,DistanceEdu.model_jm_charge,finance.finance_users,1,1,0,0
+access_jm_custom,jm.custom,CustomManage.model_jm_custom,finance.finance_users,1,0,0,0
+access_jm_de_school,jm.de.school,CustomManage.model_jm_de_school,finance.finance_users,1,0,0,0
+access_jm_tju_student,jm.tju.student,DistanceEdu.model_jm_tju_student,finance.finance_users,1,0,0,0
+access_jm_tju_plan,jm.tju.plan,DistanceEdu.model_jm_tju_plan,finance.finance_users,1,0,0,0
+access_jm_charge_account,jm.charge.account,model_jm_charge_account,finance.finance_users,1,1,1,1

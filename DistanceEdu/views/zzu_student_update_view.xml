@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="view_from_jm_zzu_student_update">
+      <field name="name">郑大学生信息导入form视图</field>
+      <field name="model">jm.zzu.student.update</field>
+      <field name="arch" type="xml">
+          <form string = "窗体名称">
+            <sheet>
+                  <group string="学生信息">
+                    <group>
+                      <field name="idcard"/>
+                      <field name="name"/>
+                      <field name="nation"/>
+                      <field name="sex"/>
+                      <field name="study_level"/>
+                      <field name="birth"/>
+                    </group>
+                    <group>
+                      <field name="phone"/>
+                      <field name="tele"/>
+                      <field name="political"/>
+                      <field name="address"/>
+                      <field name="work_unit"/>
+                      <field name="zip"/>
+                    </group>
+                  </group>
+
+                  <group string="报名信息">
+                    <group >
+                      <field name = "batch" />
+                      <field name = "study_center"/>
+                      <field name = "major" />
+                      <field name = "entry_date" required = '0'/>
+
+                    </group>
+                    <group string="">
+                      <field name = "study_code" required = '0'/>
+                      <field name = "add_score" required = '0'/>
+                      <field name = "test_code" required = '0'/>
+                      <field name = "test_pwd" required = '0'/>
+
+                    </group>
+                  </group>
+            </sheet>
+          </form>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.ui.view" id="view_tree_jm_zzu_student_update">
+      <field name="name">郑大学生信息导入tree视图</field>
+      <field name="model">jm.zzu.student.update</field>
+      <field name="priority">1</field>
+      <field name="arch" type = "xml">
+        <tree string = "">
+            <field name = "name"/>
+            <field name = "idcard" />
+            <field name = "sex"/>
+            <field name = "batch"/>
+            <field name = "major"/>
+            <field name = "entry_date"/>
+            <field name = "state"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="action_jm_zzu_student_update">
+      <field name="name">郑大学生信息导入</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">jm.zzu.student.update</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="auto_refresh" eval="1" />
+      <field name="help" type = "xml">
+        <p class = "oe.view.nocontent_create">
+            1.点击左上方的导入按钮  选择要导入的csv文件导入
+          <p>
+            2.勾选要导入的学生信息  点开动作菜单  点击导入勾选的学生
+          </p>
+          <p>
+            3.导入成功后  将已导入的学生勾选  删除
+          </p>
+        </p>
+      </field>
+    </record>
+
+
+    <!--<record id="action_jm_zzu_update_student" model="ir.actions.server">
+      <field name="name">导入选中信息</field>
+      <field name="model_id" ref="model_jm_zzu_student_update"/>
+      <field name="code">
+        if context.get('active_ids'):
+          self.student_update(cr, uid, context['active_ids'],context=None)
+      </field>
+      <field name="tag">reload</field>
+    </record>
+
+    <record id="jm_zzu_update_student" model="ir.values">
+      <field eval="'client_action_multi'" name="key2"/>
+      <field eval="'jm.zzu.student.update'" name="model"/>
+      <field name="name">导入选中信息</field>
+      <field eval="'ir.actions.server,%d'%action_jm_zzu_update_student" name="value"/>
+    </record>-->
+
+    <record id="action_jm_zzu_update_student_delete" model="ir.actions.server">
+      <field name="name">全部删除</field>
+      <field name="model_id" ref="model_jm_zzu_student_update"/>
+      <field name="code">
+          self.delete(cr, uid, context=None)
+      </field>
+      <field name="tag">reload</field>
+    </record>
+
+    <record id="jm_zzu_update_student_delete" model="ir.values">
+      <field eval="'client_action_multi'" name="key2"/>
+      <field eval="'jm.zzu.student.update'" name="model"/>
+      <field name="name">全部删除</field>
+      <field eval="'ir.actions.server,%d'%action_jm_zzu_update_student_delete" name="value"/>
+    </record>
+
+    <record model="ir.ui.view" id="view_from_confirm_import_zzu">
+      <field name="name">郑大学生信息确认导入form视图</field>
+      <field name="model">jm.zzu.confirm.import</field>
+      <field name="arch" type="xml">
+          <form string = "确认导入郑大学生">
+            <p class="oe_grey">
+                一旦导入，将不能修改或删除，只能联系管理员进行操作
+            </p>
+            <footer>
+                <button string="确认导入" name="confirm_import" type="object" default_focus="1" class="btn-primary"/>
+                <button string="取消" class="btn-default" special="cancel"/>
+            </footer>
+          </form>
+      </field>
+    </record>
+
+    <act_window id="zzu_confirm_import"
+            name="导入选中信息"
+            src_model="jm.zzu.student.update"
+            res_model="jm.zzu.confirm.import"
+            view_type="form" view_mode="form"
+            view_id = 'view_from_confirm_import_zzu'
+            key2="client_action_multi" target="new"
+            />
+  </data>
+</openerp>
